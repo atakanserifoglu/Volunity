@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44510558997",
+    "project_id": "volunity-f6738",
+    "storage_bucket": "volunity-f6738.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44510558997:android:860af5ff8b1ff958b3471c",
+        "android_client_info": {
+          "package_name": "com.example.volunity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44510558997-njkqi1s90kd3lk48sc2esme370l8f8eg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgFphxSnQedM0CQHxR4K9YGhpJCKzmCgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44510558997-njkqi1s90kd3lk48sc2esme370l8f8eg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
