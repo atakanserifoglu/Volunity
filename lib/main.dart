@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volunity/Screens/mainScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: mainScreen(),
     );
   }
 }
