@@ -23,6 +23,8 @@ dependencies:
   cloud_firestore: ^4.8.1
   firebase_core: ^2.14.0
 
+  #SPLASH SCREEN
+  animated_text_kit: ^4.2.2
 
 
 dev_dependencies:
@@ -42,6 +44,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - Assets/logo.png 
     - fonts/
   fonts:
     - family: DMSans
