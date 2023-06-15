@@ -14,16 +14,19 @@ class _mainScreenState extends State<mainScreen>{
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: entries.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 100,
-            color: kButtonColor,
-            child: Center(child: Text('Entry ${entries[index]}',style: kButtonTextStyle,)),
-          );
-        }
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView.builder(
+          padding: const EdgeInsets.all(8),
+          itemCount: entries.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 100,
+              color: kButtonColor,
+              child: Center(child: Text('Entry ${entries[index]}',style: kButtonTextStyle,)),
+            );
+          }
+      ),
     );
   }
 }
