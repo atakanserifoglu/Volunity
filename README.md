@@ -43,3 +43,6 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/5885f108-7895-4be0-9999-cfd76dfebc45)
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/74b14707-3e68-4ac7-914c-2bb8e24acd10)
 * **Ürün durumu:**
+* **Sprint review:**
+* **Sprint retrospective:**
+* Diğer notlar: N/A
