@@ -1,3 +1,8 @@
+# İçindekiler
+* [Takım](#takım)
+* [Ürün ile ilgili bilgiler](#ürün-ile-ilgili-bilgiler)
+* [Proje ilerlemesi](#proje-ilerlemesi)
+
 # Takım
 Flutter-77
 ## Üyeler
@@ -29,8 +34,13 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 * Sivil toplum kuruluşlarının, ihtiyaç duydukları gönüllüleri kolayca bulmalarını sağlamak.
 * Gönüllülerin ve sivil toplum kuruluşlarının etkinliklerini ve projelerini verimli bir şekilde yönetmelerini sağlamak.
 
-## Product backlog
-------------------------------
-
 # Proje ilerlemesi
+**Sprint yönetimi**: Sprint yönetimi ve Product Backlog Trello üzerinden yapılmıştır. Trello panosuna ulaşmak için: [Sprint board](https://trello.com/b/SOwDc9eu/project-management)
+## Product backlog
+
 ## Sprint 1
+* **Puan tamamlama mantığı:** Product Backlog'da bulunan görevler puanlanmış ve toplam **??** puana ulaşılmıştır. Sprintlerin uzunluğuna göre bu toplam puan bölünmüş ve en az **??** puanın Sprint 1'de tamamlanması gerektiğine karar verilmiştir.
+* **Sprint 1'de tamamlanması tahmin edilen puan**: **???** puan
+* **Daily scrum**: Scrum toplantılarının zaman uyuşmazlıklarından dolayı WhatsApp üzerinden yapılmasına karar verilmiştir. Örnek daily scrum konuşmaları github'da paylaşılmaktadır: [_chat.txt](https://github.com/atakanserifoglu/Volunity/files/11758183/_chat.txt)
+
+
