@@ -10,3 +10,11 @@ const kButtonTextStyle = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.w500,
 );
+
+const kGuestTextStyle = TextStyle(
+  fontFamily: 'DMSans',
+  fontSize: 14.0,
+  decoration: TextDecoration.underline,
+  color: Colors.black54,
+  fontWeight: FontWeight.w500,
+);

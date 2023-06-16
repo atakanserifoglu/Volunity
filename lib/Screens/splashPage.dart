@@ -1,6 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'loginScreen.dart';
 
 
 class splashPage extends StatefulWidget {
@@ -9,6 +12,12 @@ class splashPage extends StatefulWidget {
 }
 
 class splashPageState extends State<splashPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startTime();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +46,7 @@ class splashPageState extends State<splashPage> {
                     textStyle: TextStyle(
                         fontSize: 40.0,
                         fontFamily: 'DMSans',
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: Colors.black
                         //letterSpacing: -1.25,
                         ),
@@ -49,5 +58,12 @@ class splashPageState extends State<splashPage> {
         ),
       ),
     );
+  }
+
+  startTime() async {
+    var dur = new Duration(seconds: 3);
+    return new Timer(dur, () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> loginScreen()));
+    });
   }
 }

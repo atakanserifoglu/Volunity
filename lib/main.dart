@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:volunity/firebase_options.dart';
 import 'package:volunity/screens/mainScreen.dart';
+import 'package:volunity/screens/splashPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: mainScreen(),
+      home: splashPage(),
     );
   }
 }
