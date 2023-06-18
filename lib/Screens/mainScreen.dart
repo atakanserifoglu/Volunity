@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volunity/utilities/EventCard.dart';
 
 import '../utilities/constants.dart';
 
@@ -21,9 +22,8 @@ class _mainScreenState extends State<mainScreen>{
           itemCount: entries.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-              height: 100,
-              color: kButtonColor,
-              child: Center(child: Text('Entry ${entries[index]}',style: kButtonTextStyle,)),
+
+              child: Center(child: EventCard()),
             );
           }
       ),

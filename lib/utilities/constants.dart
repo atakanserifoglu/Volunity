@@ -18,3 +18,16 @@ const kGuestTextStyle = TextStyle(
   color: Colors.black54,
   fontWeight: FontWeight.w500,
 );
+const kCardTextStyle = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: 15.0,
+  fontWeight: FontWeight.w500,
+  color: Colors.black87,
+);
+
+const kCardTitleStyle = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: 20.0,
+  fontWeight:  FontWeight.w900,
+  color: Colors.black87,
+);
