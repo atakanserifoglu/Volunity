@@ -26,6 +26,10 @@ dependencies:
   #SPLASH SCREEN
   animated_text_kit: ^4.2.2
 
+  #STATE_MANAGEMENT
+  flutter_riverpod: ^2.3.6
+  riverpod: ^2.3.6
+
 
 dev_dependencies:
   flutter_test:

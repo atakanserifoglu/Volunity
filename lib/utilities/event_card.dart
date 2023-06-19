@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class EventCard extends StatefulWidget {
-  EventCard();
+  const EventCard({super.key});
+
 
   @override
   State<EventCard> createState() => _EventCard();
 }
 
 class _EventCard extends State<EventCard> with TickerProviderStateMixin {
-
-  _EventCard();
 
   @override
   void initState() {
@@ -36,7 +35,7 @@ class _EventCard extends State<EventCard> with TickerProviderStateMixin {
               Column(
                 children: [
                   Ink.image(
-                    image: AssetImage('Assets/stockImage.jpeg'),
+                    image: const AssetImage('Assets/stockImage.jpeg'),
                     height: 180,
                     fit: BoxFit.cover,
                   ),
@@ -44,7 +43,7 @@ class _EventCard extends State<EventCard> with TickerProviderStateMixin {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10)
                         .copyWith(bottom: 8),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text('THIS IS AN EVENT CARD',

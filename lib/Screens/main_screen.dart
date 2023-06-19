@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:volunity/utilities/EventCard.dart';
 
 import '../utilities/constants.dart';
+import '../utilities/event_card.dart';
 
-class mainScreen extends StatefulWidget{
+class MainScreen extends StatefulWidget{
   static const String id = 'Main Screen';
+
+  const MainScreen({super.key});
   @override
-  _mainScreenState createState() => _mainScreenState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _mainScreenState extends State<mainScreen>{
+class _MainScreenState extends State<MainScreen>{
   final List<String> entries = <String>['A', 'B', 'C'];
 
 
@@ -22,8 +24,7 @@ class _mainScreenState extends State<mainScreen>{
           itemCount: entries.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-
-              child: Center(child: EventCard()),
+              child: const Center(child: EventCard()),
             );
           }
       ),
