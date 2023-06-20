@@ -22,6 +22,8 @@ dependencies:
   #FIREBASE
   cloud_firestore: ^4.8.1
   firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  firebase_ui_auth: ^1.4.3
 
   #SPLASH SCREEN
   animated_text_kit: ^4.2.2
