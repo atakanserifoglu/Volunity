@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:volunity/Screens/main_screen.dart';
+import 'package:volunity/Screens/profileScreen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/firebase_options.dart';
 
@@ -12,6 +14,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -19,11 +22,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Volunity',
+      title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
+      routes: {
+        MainScreen.id: (context) =>  MainScreen(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        profileScreen.id: (context) =>  profileScreen(),
+      },
       home: const SplashPage(),
     );
   }

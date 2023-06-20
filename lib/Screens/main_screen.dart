@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:volunity/utilities/event_card.dart';
+import 'package:volunity/utilities/bottomBar.dart';
 import '../utilities/constants.dart';
-import '../utilities/event_card.dart';
+
 
 class MainScreen extends StatefulWidget{
   static const String id = 'Main Screen';
@@ -28,6 +29,7 @@ class _MainScreenState extends State<MainScreen>{
             );
           }
       ),
+      bottomNavigationBar: bottomBar(selectedInt: 0,),
     );
   }
 }
