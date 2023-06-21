@@ -7,5 +7,5 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   
 }
 class AuthenticationState{
-
+  // Burası ileride provider ve stateler ile desteklenebilir
 }

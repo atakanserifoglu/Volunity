@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:volunity/Screens/register_screen.dart';
+import 'package:volunity/auth/authentication_view.dart';
 import 'package:volunity/utilities/constants.dart';
 import 'dart:async';
 import 'login_screen.dart';
@@ -55,7 +57,7 @@ class SplashPageState extends State<SplashPage> {
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AuthenticationView()));
     });
   }
 }

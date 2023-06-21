@@ -24,6 +24,8 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   firebase_ui_auth: ^1.4.3
+  google_sign_in: ^6.1.4
+  firebase_ui_oauth_google: ^1.2.3
 
   #SPLASH SCREEN
   animated_text_kit: ^4.2.2
