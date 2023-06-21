@@ -6,8 +6,10 @@ import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profileScreen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/firebase_options.dart';
+import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/theme/default_theme.dart';
 
+import 'Screens/login_screen.dart';
 import 'Screens/splash_page.dart';
 
 Future<void> main() async {
@@ -37,8 +39,9 @@ class MyApp extends StatelessWidget {
       ),// Defaul theme kullanmak için : DefaultTheme(context).theme,
       routes: {
         MainScreen.id: (context) =>  MainScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         profileScreen.id: (context) =>  profileScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        registerScreen.id : (context) => registerScreen(),
       },
       home: const SplashPage(),
     );

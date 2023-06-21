@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class registerScreen extends StatefulWidget {
+  static const String id = 'Register Screen';
+  const registerScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => RegisterScreenState();
+  State<StatefulWidget> createState() => registerScreenState();
 }
 
-class RegisterScreenState extends State<RegisterScreen> {
+class registerScreenState extends State<registerScreen> {
   bool value = false; // For checkbox
   void test_function() {
     print("FUNCTION CALL"); // test function

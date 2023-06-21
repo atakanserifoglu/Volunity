@@ -4,6 +4,7 @@ import '../utilities/constants.dart';
 import 'main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String id = 'LogIn Screen';
   const LoginScreen({super.key});
 
   @override

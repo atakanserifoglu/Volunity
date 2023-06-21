@@ -11,6 +11,13 @@ const kButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
+const kButtonTextStyleSmall = TextStyle(
+  fontFamily: 'DMSans',
+  fontSize: 22.0,
+  color: Colors.white,
+  fontWeight: FontWeight.w500,
+);
+
 const kGuestTextStyle = TextStyle(
   fontFamily: 'DMSans',
   fontSize: 14.0,
@@ -18,16 +25,31 @@ const kGuestTextStyle = TextStyle(
   color: Colors.black54,
   fontWeight: FontWeight.w500,
 );
-const kCardTextStyle = TextStyle(
+const kTitleTextStyle = TextStyle(
   fontFamily: 'Poppins',
   fontSize: 15.0,
   fontWeight: FontWeight.w500,
   color: Colors.black87,
 );
 
-const kCardTitleStyle = TextStyle(
-  fontFamily: 'Poppins',
-  fontSize: 20.0,
-  fontWeight:  FontWeight.w900,
+const kTitleStyle = TextStyle(
+  fontFamily: 'DMSans',
+  fontSize: 40.0,
+  fontWeight: FontWeight.w500,
   color: Colors.black87,
+);
+const kCardTitleStyle = TextStyle(
+  fontFamily: 'DMSans',
+  fontSize: 27.0,
+  fontWeight: FontWeight.w500,
+  color: Colors.black87,
+);
+
+var kButtonStyle = ButtonStyle(
+    shape:  MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: BorderSide(color: Colors.black)
+        )
+    )
 );
