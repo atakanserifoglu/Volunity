@@ -2,21 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
-class EventCard extends StatefulWidget {
+class EventCard extends StatelessWidget {
   const EventCard({super.key});
-
-
-  @override
-  State<EventCard> createState() => _EventCard();
-}
-
-class _EventCard extends State<EventCard> with TickerProviderStateMixin {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

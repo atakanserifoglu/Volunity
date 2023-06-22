@@ -1,74 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:volunity/utilities/bottomBar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/Screens/register_screen.dart';
+import 'package:volunity/utilities/bottom_bar.dart';
+import '../auth/authentication_provider.dart';
+import '../auth/authentication_view.dart';
 import '../utilities/constants.dart';
 import 'main_screen.dart';
 
-class selectAccount extends StatefulWidget {
+class SelectAccount extends ConsumerWidget {
   static const String id = 'Select Type Screen';
 
-  const selectAccount({super.key});
+  const SelectAccount({super.key});
 
   @override
-  _SelectScreenState createState() => _SelectScreenState();
-}
-
-class _SelectScreenState extends State<selectAccount> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final deviceHeight = MediaQuery.sizeOf(context).height;
     final deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      appBar: AppBar(),
+      //backgroundColor: Colors.grey[400],
       body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: deviceWidth / 15),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                SizedBox(
-                  height: deviceHeight / 15,
-                ),
-            Text(
+          padding: EdgeInsets.symmetric(horizontal: deviceWidth / 15, vertical: deviceHeight / 15),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            SizedBox(
+              height: deviceHeight / 15,
+            ),
+            const Text(
               "Choose an",
               style: kButtonTextStyle,
             ),
-            Text("account type:", style: kButtonTextStyle),
+            const Text("account type:", style: kButtonTextStyle),
             SizedBox(
-              height: deviceHeight / 40,
-
+              height: deviceHeight / 20,
             ),
-
             SizedBox(
               height: deviceHeight / 8,
               child: DecoratedBox(
-                decoration:  BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(20),
-                      ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: TextButton(
                   style: kButtonStyle,
-                  onPressed: () {},
-                  child: Text('Personal',style: kButtonTextStyleSmall,),
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(context, CustomRegister.id, (route) => false);
+                  },
+                  child: const Text(
+                    'Personal',
+                    style: kButtonTextStyleSmall,
+                  ),
                 ),
               ),
             ),
             SizedBox(
               height: deviceHeight / 45,
             ),
-                SizedBox(
-                  height: deviceHeight / 8,
-                  child: DecoratedBox(
-                    decoration:  BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: TextButton(
-                      style: kButtonStyle,
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(context, MainScreen.id,(route)=> false);
-                      },
-                      child: Text('Organization',style: kButtonTextStyleSmall,),
-                    ),
+            SizedBox(
+              height: deviceHeight / 8,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TextButton(
+                  style: kButtonStyle,
+                  onPressed: () {
+                    ref.read(authNotifierProvider).setOrganizer();
+                    Navigator.pushNamedAndRemoveUntil(context, CustomRegister.id, (route) => false);
+                  },
+                  child: const Text(
+                    'Organization',
+                    style: kButtonTextStyleSmall,
                   ),
                 ),
+              ),
+            ),
           ])),
     );
   }

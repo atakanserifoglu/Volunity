@@ -1,11 +1,20 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
-  AuthenticationNotifier(): super(AuthenticationState());
-  
+
+
+class AuthenticationNotifier extends ChangeNotifier {
+
+  bool isOrganizer =false;
+
+  setOrganizer(){
+    isOrganizer=true;
+    notifyListeners();
+  }
 }
-class AuthenticationState{
-  // Burası ileride provider ve stateler ile desteklenebilir
-}
+
+final authNotifierProvider = ChangeNotifierProvider<AuthenticationNotifier>((ref) {
+  return AuthenticationNotifier();
+});

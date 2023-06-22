@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/Screens/profileScreen.dart';
+import 'package:volunity/Screens/profile_screen.dart';
 import 'constants.dart';
 
-class bottomBar extends StatefulWidget {
-  bottomBar({required this.selectedInt});
+
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key, required this.selectedInt});
   final int selectedInt;
   @override
-  _bottomBarState createState() => _bottomBarState(selectedIndex: selectedInt);
+  State<BottomBar> createState() => _BottomBarState(selectedIndex: selectedInt);
 }
 
-class _bottomBarState extends State<bottomBar> {
-  _bottomBarState({required this.selectedIndex});
+class _BottomBarState extends State<BottomBar> {
+  _BottomBarState({required this.selectedIndex});
 
   int selectedIndex;
   @override
@@ -32,7 +33,7 @@ class _bottomBarState extends State<bottomBar> {
     else if(selectedIndex ==1){
         Navigator.pushNamedAndRemoveUntil(context, MainScreen.id,(route)=> false);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return profileScreen();
+          return const ProfileScreen();
         }));
     }
   }

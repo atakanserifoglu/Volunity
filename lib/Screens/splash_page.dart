@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:volunity/Screens/entry_page.dart';
+import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/auth/authentication_view.dart';
 import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/Screens/select_account_screen.dart';
@@ -13,10 +15,10 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => SplashPageState();
+  State<StatefulWidget> createState() => _SplashPageState();
 }
 
-class SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -59,9 +61,7 @@ class SplashPageState extends State<SplashPage> {
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> EntryPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirebaseAuth.instance.currentUser == null ? const EntryPage() : const MainScreen())); // kullanıcı varsa mainscreen yoksa entrypage
     });
   }
 }
-
-//Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AuthenticationView()));

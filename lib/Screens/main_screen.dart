@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:volunity/utilities/event_card.dart';
-import 'package:volunity/utilities/bottomBar.dart';
+import 'package:volunity/utilities/bottom_bar.dart';
 import '../utilities/constants.dart';
 
 
@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen>{
             );
           }
       ),
-      bottomNavigationBar: bottomBar(selectedInt: 0,),
+      bottomNavigationBar: const BottomBar(selectedInt: 0,),
     );
   }
 }
