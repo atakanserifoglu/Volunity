@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: BottomBar(selectedInt: 1),
+      bottomNavigationBar: BottomBar(selectedInt: 2),
       body: Center(
         child: ElevatedButton(onPressed: () async {
           await FirebaseAuth.instance.signOut();

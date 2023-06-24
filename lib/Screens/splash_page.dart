@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirebaseAuth.instance.currentUser == null ? const EntryPage() : const MainScreen())); // kullanıcı varsa mainscreen yoksa entrypage
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirebaseAuth.instance.currentUser == null ? const EntryPage() :  MainScreen())); // kullanıcı varsa mainscreen yoksa entrypage
     });
   }
 }

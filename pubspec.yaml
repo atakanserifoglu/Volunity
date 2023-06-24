@@ -26,6 +26,7 @@ dependencies:
   firebase_ui_auth: ^1.4.3
   google_sign_in: ^6.1.4
   firebase_ui_oauth_google: ^1.2.3
+  firebase_storage: ^11.2.3
 
   #SPLASH SCREEN
   animated_text_kit: ^4.2.2
@@ -33,6 +34,11 @@ dependencies:
   #STATE_MANAGEMENT
   flutter_riverpod: ^2.3.6
   riverpod: ^2.3.6
+
+  #photo picker
+  image_picker: ^0.8.9
+  path: ^1.8.3
+  firebase_cached_image: ^0.4.4
 
 
 

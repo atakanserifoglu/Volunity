@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'constants.dart';
+import 'package:firebase_cached_image/firebase_cached_image.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
 
+  const EventCard({super.key, required this.eventName, required this.eventDetail, required this.eventDate, required this.photoName});
+  final String? eventName;
+  final String? eventDetail;
+  final String? eventDate;
+  final String photoName;
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -22,7 +26,7 @@ class EventCard extends StatelessWidget {
               Column(
                 children: [
                   Ink.image(
-                    image: const AssetImage('Assets/stockImage.jpeg'),
+                    image: FirebaseImageProvider(FirebaseUrl(photoName)),
                     height: 180,
                     fit: BoxFit.cover,
                   ),
@@ -30,10 +34,14 @@ class EventCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10)
                         .copyWith(bottom: 8),
-                    child: const Row(
+                    child:  Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('THIS IS AN EVENT CARD',
+                        Text('NAME: ${eventName}',
+                            style: kCardTitleStyle),
+                        Text('DETAILS: ${eventDetail}',
+                            style: kCardTitleStyle),
+                        Text('DATE: ${eventDate}',
                             style: kCardTitleStyle),
                       ],
                     ),

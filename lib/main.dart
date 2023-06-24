@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/entry_page.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profile_screen.dart';
@@ -37,12 +38,13 @@ class MyApp extends StatelessWidget {
       ),// Defaul theme kullanmak için : DefaultTheme(context).theme,
       
       routes: {
-        MainScreen.id: (context) =>  const MainScreen(),
+        MainScreen.id: (context) =>   MainScreen(),
         ProfileScreen.id: (context) =>  const ProfileScreen(),
         CustomSignIn.id: (context) => const CustomSignIn(),
         CustomRegister.id : (context) => const CustomRegister(),
         SelectAccount.id : (context) => const SelectAccount(),
         EntryPage.id : (context) => const EntryPage(),
+        AddEvent.id  : (context) =>  AddEvent(),
         //sign-in.id :(context) => 
       },
       home: const SplashPage(),
