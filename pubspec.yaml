@@ -62,6 +62,7 @@ flutter:
   assets:
     - Assets/
     - fonts/
+    - Assets/profileAvatar.jpg
   fonts:
     - family: Poppins
       fonts:
