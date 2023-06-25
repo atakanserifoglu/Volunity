@@ -26,7 +26,8 @@ class _AddEvent extends State<AddEvent> {
   File? _photo;
   String? photoName = "";
   final ImagePicker _picker = ImagePicker();
-
+  final fieldText = TextEditingController();
+  final fieldText2 = TextEditingController();
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -84,7 +85,8 @@ class _AddEvent extends State<AddEvent> {
           child: ListView(
             children: [
               TextFormField(
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: fieldText,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     labelText: "Event Name",
@@ -103,6 +105,7 @@ class _AddEvent extends State<AddEvent> {
               ),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
+                controller: fieldText2,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     labelText: "Event Detail",
@@ -141,7 +144,10 @@ class _AddEvent extends State<AddEvent> {
                   Container(
                     width: MediaQuery.of(context).size.width / 2,
                     child: ElevatedButton.icon(
-                      onPressed: () => _saveFormData(),
+                      onPressed: () => {
+                        _saveFormData(),
+                        clearText()
+                      },
                       icon: Icon(Icons.check),
                       label: Text("Kaydet"),
                     ),
@@ -194,6 +200,10 @@ class _AddEvent extends State<AddEvent> {
     );
   }
 
+  void clearText() {
+    fieldText.clear();
+    fieldText2.clear();
+  }
   void _saveFormData() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
