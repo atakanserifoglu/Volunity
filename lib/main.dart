@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/entry_page.dart';
 import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/Screens/profile_screen.dart';
+import 'package:volunity/Screens/profileScreenMobile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/auth/authentication_view.dart';
 import 'package:volunity/firebase_options.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       
       routes: {
         MainScreen.id: (context) =>   MainScreen(),
-        ProfileScreen.id: (context) =>  const ProfileScreen(),
+        ProfileScreen.id: (context) =>   ProfileScreen(),
         CustomSignIn.id: (context) => const CustomSignIn(),
         CustomRegister.id : (context) => const CustomRegister(),
         SelectAccount.id : (context) => const SelectAccount(),

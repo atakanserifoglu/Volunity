@@ -39,6 +39,7 @@ dependencies:
   image_picker: ^0.8.9
   path: ^1.8.3
   firebase_cached_image: ^0.4.4
+  avatar_view: ^1.0.1
 
 
 

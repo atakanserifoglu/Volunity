@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:volunity/utilities/bottom_bar.dart';
 import '../utilities/constants.dart';
@@ -28,6 +29,172 @@ class _AddEvent extends State<AddEvent> {
   final ImagePicker _picker = ImagePicker();
   final fieldText = TextEditingController();
   final fieldText2 = TextEditingController();
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    final double deviceHeight = MediaQuery.sizeOf(context).height;
+    final double deviceWidth = MediaQuery.sizeOf(context).width;
+    return Scaffold(
+      appBar: AppBar(),
+      bottomNavigationBar: const BottomBar(
+        selectedInt: 0,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Text("Create an event for the community",style: kButtonTextStyle.copyWith(fontSize: 25),textAlign: TextAlign.center,),
+            Form(
+              key: formKey,
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: deviceWidth/25),
+                child: Column(
+                  children: [
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 32,
+                        ),
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              _showPicker(context);
+                            },
+                            child: CircleAvatar(
+                              radius: deviceWidth/5,
+                              backgroundColor: _photo == null
+                                  ? kButtonColor : Colors.white,
+                              child: _photo != null
+                                  ? ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.file(
+                                  _photo!,
+                                ),
+                              )
+                                  : Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(deviceWidth/1.5)),
+                                width: deviceWidth/2.9,
+                                height: deviceWidth/2.9,
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: deviceHeight/40,),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: fieldText,
+                      decoration: InputDecoration(
+                          labelText: "Event Name",
+                          hintText: "Event Name",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: kButtonColor))),
+                      validator: (value) {
+                        if (value!.length < 3)
+                          return "Event name should contain more thsn 3 letters";
+                        return null;
+                      },
+                      onSaved: (data) => eventName = data,
+                    ),
+                    SizedBox(
+                      height: deviceHeight/30,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: fieldText2,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+                          labelText: "Event Detail",
+                          hintMaxLines: 8,
+                          hintText: "Event Detail",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: kButtonColor))),
+                      onSaved: (data) => eventDetails = data,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text("Event Date: "),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.black54, // Background color
+                                  foregroundColor: kButtonColor, // Text Color (Foreground color)
+                                ),
+                                  onPressed: () async {
+                                    final DateTime? picked = await showDatePicker(
+                                        context: context,
+                                        initialDate: eventDate,
+                                        firstDate: eventDate.subtract(Duration(days: 20)),
+                                        lastDate: eventDate.add(Duration(days: 30)));
+                                    if (picked != null && picked != eventDate) {
+                                      setState(() {
+                                        eventDate = picked;
+                                      });
+                                    }
+                                    ;
+                                  },
+                                  icon: Icon(Icons.calendar_today),
+                                  label: Text("${formatString(eventDate.toString())} ")),
+                            ],
+                          ),
+                        )
+
+
+                      ],
+                    ),
+                    SizedBox(height: deviceHeight/25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black54, // Background color
+                              foregroundColor: kButtonColor, // Text Color (Foreground color)
+                            ),
+                            onPressed: () => {
+                              _saveFormData(),
+                              clearText()
+                            },
+                            icon: Icon(Icons.check),
+                            label: Text("Create Event"),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void clearText() {
+    fieldText.clear();
+    fieldText2.clear();
+  }
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -70,140 +237,6 @@ class _AddEvent extends State<AddEvent> {
       print('error occured');
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      bottomNavigationBar: const BottomBar(
-        selectedInt: 0,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: Form(
-          key: formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: fieldText,
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person),
-                    labelText: "Event Name",
-                    hintText: "Event Name",
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue))),
-                validator: (value) {
-                  if (value!.length < 3)
-                    return "Event name should contain more thsn 3 letters";
-                  return null;
-                },
-                onSaved: (data) => eventName = data,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                controller: fieldText2,
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email),
-                    labelText: "Event Detail",
-                    hintText: "Event Detail",
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue))),
-                onSaved: (data) => eventDetails = data,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: [
-                  Text("Selected Date: ${eventDate}"),
-                  ElevatedButton.icon(
-                      onPressed: () async {
-                        final DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: eventDate,
-                            firstDate: eventDate.subtract(Duration(days: 20)),
-                            lastDate: eventDate.add(Duration(days: 30)));
-                        if (picked != null && picked != eventDate) {
-                          setState(() {
-                            eventDate = picked;
-                          });
-                        }
-                        ;
-                      },
-                      icon: Icon(Icons.calendar_today),
-                      label: Text("Event Date")),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: ElevatedButton.icon(
-                      onPressed: () => {
-                        _saveFormData(),
-                        clearText()
-                      },
-                      icon: Icon(Icons.check),
-                      label: Text("Kaydet"),
-                    ),
-                  ),
-                ],
-              ),
-          Column(
-            children: <Widget>[
-              SizedBox(
-                height: 32,
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    _showPicker(context);
-                  },
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundColor: Color(0xffFDCF09),
-                    child: _photo != null
-                        ? ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.file(
-                        _photo!,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.fitHeight,
-                      ),
-                    )
-                        : Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(50)),
-                      width: 100,
-                      height: 100,
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void clearText() {
-    fieldText.clear();
-    fieldText2.clear();
-  }
   void _saveFormData() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -223,6 +256,8 @@ class _AddEvent extends State<AddEvent> {
       });
     }
     uploadFile();
+    print(FirebaseAuth.instance.currentUser);
+    print("object");
   }
   void _showPicker(context) {
     showModalBottomSheet(
@@ -252,6 +287,10 @@ class _AddEvent extends State<AddEvent> {
             ),
           );
         });
+  }
+  String formatString(String text){
+    int indexOfSpace = text.indexOf(' ', 0);
+    return text.substring(0, indexOfSpace);
   }
 }
 

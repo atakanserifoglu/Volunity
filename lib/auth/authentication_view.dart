@@ -11,6 +11,7 @@ class CustomSignIn extends ConsumerWidget {
   static const String id = 'CustomSignIn Screen';
   const CustomSignIn({super.key});
   final String _clientId2 = '44510558997-bgrtg2qdqt2upf36dfa4t681gl2737k9.apps.googleusercontent.com';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StreamBuilder<User?>(
@@ -119,10 +120,15 @@ class CustomRegister extends ConsumerWidget {
 
   Future<void> userDetailSetToFirabe(ref) async {
     await FirebaseFirestore.instance
-        .collection('users')
-        .doc()
-        .set({'isOrganizer': ref.watch(authNotifierProvider).isOrganizer});
+        .collection('user')
+        .add({
+      'isOrganizer': ref.watch(authNotifierProvider).isOrganizer,
+      'userId': FirebaseAuth.instance.currentUser!.toString()
+        }
+    );
   }
+
+
   //   final _formkey = GlobalKey<FormState>();
   //   final _auth = FirebaseAuth.instance;
 
