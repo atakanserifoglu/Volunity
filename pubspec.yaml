@@ -41,7 +41,8 @@ dependencies:
   firebase_cached_image: ^0.4.4
   avatar_view: ^1.0.1
 
-
+  #LOGIN
+  email_validator: '^2.1.16'
 
 
 dev_dependencies:

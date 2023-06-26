@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -7,14 +6,14 @@ import 'package:volunity/Screens/entry_page.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profileScreenMobile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:volunity/auth/authentication_view.dart';
+import 'package:volunity/auth/utils.dart';
 import 'package:volunity/firebase_options.dart';
-import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/theme/default_theme.dart';
 
-import 'Screens/login_screen.dart';
 import 'Screens/select_account_screen.dart';
 import 'Screens/splash_page.dart';
+import 'auth/custom_login_page.dart';
+import 'auth/custom_register_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -31,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: Utils.messengerKey,
       title: 'Volunity',
       theme: ThemeData(
         useMaterial3: true,
@@ -39,15 +38,15 @@ class MyApp extends StatelessWidget {
       
       routes: {
         MainScreen.id: (context) =>   MainScreen(),
-        ProfileScreen.id: (context) =>   ProfileScreen(),
-        CustomSignIn.id: (context) => const CustomSignIn(),
-        CustomRegister.id : (context) => const CustomRegister(),
+        ProfileScreen.id: (context) =>   const ProfileScreen(),
+        CustomLoginPage.id: (context) =>  CustomLoginPage(),
+        CustomRegisterPage.id : (context) =>  CustomRegisterPage(),
         SelectAccount.id : (context) => const SelectAccount(),
         EntryPage.id : (context) => const EntryPage(),
         AddEvent.id  : (context) =>  AddEvent(),
         //sign-in.id :(context) => 
       },
-      home: const SplashPage(),
+      home:  SplashPage(),
     );
   }
 }

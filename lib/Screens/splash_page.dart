@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:volunity/Screens/entry_page.dart';
 import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/auth/authentication_view.dart';
 import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/Screens/select_account_screen.dart';
 import 'package:volunity/utilities/constants.dart';

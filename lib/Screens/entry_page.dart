@@ -1,11 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:volunity/Screens/login_screen.dart';
-import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/Screens/select_account_screen.dart';
-import '../auth/authentication_view.dart';
+import 'package:volunity/auth/custom_login_page.dart';
 import '../utilities/constants.dart';
-import 'main_screen.dart';
 
 class EntryPage extends StatelessWidget {
   static const String id = 'EntryPage Screen';
@@ -54,7 +51,7 @@ class EntryPage extends StatelessWidget {
                         child: TextButton(
                           style: kButtonStyle,
                           onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(context, CustomSignIn.id,(route)=> false);
+                            Navigator.pushNamedAndRemoveUntil(context, CustomLoginPage.id,(route)=> false);
                           },
                           child: Text('Log In',style: kButtonTextStyleSmall.copyWith(color: Colors.black),),
                         ),

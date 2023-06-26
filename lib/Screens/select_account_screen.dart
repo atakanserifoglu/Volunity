@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/register_screen.dart';
 import 'package:volunity/utilities/bottom_bar.dart';
 import '../auth/authentication_provider.dart';
-import '../auth/authentication_view.dart';
+import '../auth/custom_register_page.dart';
 import '../utilities/constants.dart';
 import 'main_screen.dart';
 
@@ -42,7 +42,8 @@ class SelectAccount extends ConsumerWidget {
                 child: TextButton(
                   style: kButtonStyle,
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, CustomRegister.id, (route) => false);
+                    ref.read(authNotifierProvider).notOrganizer();
+                    Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
                   },
                   child: const Text(
                     'Personal',
@@ -64,8 +65,8 @@ class SelectAccount extends ConsumerWidget {
                 child: TextButton(
                   style: kButtonStyle,
                   onPressed: () {
-                    ref.read(authNotifierProvider).setOrganizer();
-                    Navigator.pushNamedAndRemoveUntil(context, CustomRegister.id, (route) => false);
+                    ref.read(authNotifierProvider).organizer();
+                    Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
                   },
                   child: const Text(
                     'Organization',
