@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/login_screen.dart';
-import 'package:volunity/Screens/main_screen.dart';
+import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/authentication_provider.dart';
 import 'package:volunity/auth/custom_login_page.dart';
 import 'package:volunity/auth/utils.dart';
@@ -46,7 +46,7 @@ class CustomRegisterPage extends ConsumerWidget {
             );
           } else if (snapshot.hasData) {
             //User signed
-            return MainScreen();
+            return const MainScaffold();
           } else {
             return Scaffold(
               body: SafeArea(

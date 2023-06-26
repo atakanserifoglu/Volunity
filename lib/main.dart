@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/entry_page.dart';
+import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profileScreenMobile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,16 +38,17 @@ class MyApp extends StatelessWidget {
       ),// Defaul theme kullanmak için : DefaultTheme(context).theme,
       
       routes: {
+        MainScaffold.id :(context) => const MainScaffold(),
         MainScreen.id: (context) =>   MainScreen(),
         ProfileScreen.id: (context) =>   const ProfileScreen(),
         CustomLoginPage.id: (context) =>  CustomLoginPage(),
         CustomRegisterPage.id : (context) =>  CustomRegisterPage(),
         SelectAccount.id : (context) => const SelectAccount(),
         EntryPage.id : (context) => const EntryPage(),
-        AddEvent.id  : (context) =>  AddEvent(),
+        AddEvent.id  : (context) =>  const AddEvent(),
         //sign-in.id :(context) => 
       },
-      home:  SplashPage(),
+      home:  const SplashPage(),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:volunity/Screens/select_account_screen.dart';
 import 'package:volunity/utilities/constants.dart';
 import 'dart:async';
 import 'login_screen.dart';
+import 'main_scaffold.dart';
 
 
 class SplashPage extends StatefulWidget {
@@ -60,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirebaseAuth.instance.currentUser == null ? const EntryPage() :  MainScreen())); // kullanıcı varsa mainscreen yoksa entrypage
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirebaseAuth.instance.currentUser == null ? const EntryPage() :  const MainScaffold())); // kullanıcı varsa mainscaffold yoksa entrypage
     });
   }
 }

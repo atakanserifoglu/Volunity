@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/login_screen.dart';
-import 'package:volunity/Screens/main_screen.dart';
+import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/utils.dart';
 
 import '../Screens/select_account_screen.dart';
@@ -22,7 +22,6 @@ class CustomLoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(authNotifierProvider);
-
     return Theme(
       data: ThemeData(
         useMaterial3: true,
@@ -47,7 +46,7 @@ class CustomLoginPage extends ConsumerWidget {
             );
           } else if (snapshot.hasData) {
             //User signed
-            return MainScreen();
+            return const MainScaffold();
           } else {
             return Scaffold(
               body: SafeArea(
@@ -165,7 +164,7 @@ class CustomLoginPage extends ConsumerWidget {
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () {
                                                   Navigator.pushNamedAndRemoveUntil(
-                                                      context, MainScreen.id, (route) => false);
+                                                      context, MainScaffold.id, (route) => false);
                                                 },
                                               text: 'devam edin',
                                               style: Theme.of(context)

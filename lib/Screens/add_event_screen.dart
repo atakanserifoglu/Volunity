@@ -13,7 +13,7 @@ var uuid = Uuid();
 class AddEvent extends StatefulWidget {
   static const String id = 'Add Event Screen';
 
-  AddEvent({super.key});
+  const AddEvent({super.key});
 
   @override
   _AddEvent createState() => _AddEvent();
@@ -41,9 +41,6 @@ class _AddEvent extends State<AddEvent> {
     final double deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: const BottomBar(
-        selectedInt: 0,
-      ),
       body: Padding(
         padding: EdgeInsets.all(8),
         child: Column(

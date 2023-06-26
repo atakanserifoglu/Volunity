@@ -1,26 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/riverpod/bottom_bar_riverpod.dart';
 import 'package:volunity/utilities/constants.dart';
 
 import '../utilities/bottom_bar.dart';
 import 'entry_page.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   static const String id = 'Profile Screen';
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreen();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreen();
 }
 
-class _ProfileScreen extends State<ProfileScreen> {
+class _ProfileScreen extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: BottomBar(selectedInt: 2),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
