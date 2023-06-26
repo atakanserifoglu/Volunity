@@ -7,7 +7,9 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
+var uuid = Uuid();
 class AddEvent extends StatefulWidget {
   static const String id = 'Add Event Screen';
 
@@ -237,7 +239,8 @@ class _AddEvent extends State<AddEvent> {
       print('error occured');
     }
   }
-  void _saveFormData() {
+  void _saveFormData() async{
+    String uid = uuid.v1();
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -245,7 +248,6 @@ class _AddEvent extends State<AddEvent> {
         _textName = eventName;
         _textDetails = eventDetails;
       });
-
       CollectionReference _collectionReferance =
           FirebaseFirestore.instance.collection("orgs");
       _collectionReferance.doc().set({
@@ -253,8 +255,27 @@ class _AddEvent extends State<AddEvent> {
         "details": eventDetails,
         "date": eventDate,
         "photoName": photoName,
+        "eventID" : uid,
       });
     }
+
+    List<String> idList = <String>[];
+    CollectionReference _userCollectionReferance =
+    FirebaseFirestore.instance.collection("users");
+
+    DocumentSnapshot<Object?>  doc = await _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).get();
+            final data = doc.data() as Map<String, dynamic>;
+            List.from(data['eventIDS']).forEach((element) {
+              String data = element;
+              idList.add(data);
+            },
+            );
+
+    idList.add(uid);
+    _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).update({
+      "eventIDS" : idList
+    });
+
     uploadFile();
     print(FirebaseAuth.instance.currentUser);
     print("object");
