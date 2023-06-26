@@ -46,6 +46,9 @@ dependencies:
   uuid: ^3.0.7
 
 
+  #FOR_UI
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

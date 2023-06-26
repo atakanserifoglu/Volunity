@@ -26,9 +26,9 @@ class EventCard extends StatelessWidget {
               Column(
                 children: [
                   Ink.image(
-                    image: FirebaseImageProvider(FirebaseUrl(photoName)),
+                    image: NetworkImage(photoName),
                     height: 180,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.scaleDown,
                   ),
                   SizedBox(height: deviceHeight / 100),
                   Padding(

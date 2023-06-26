@@ -42,12 +42,12 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
                     final document = snapshot.data!.docs[index];
-                    final docData = document!.data() as Map<String, dynamic>;
+                    final docData = document.data() as Map<String, dynamic>;
                     return EventCard(
                       eventName: docData['name'].toString(),
                       eventDetail: docData['details'].toString(),
                       eventDate: formatString(docData['date'].toDate().toString()),
-                      photoName: "gs://volunity-f6738.appspot.com/${docData['photoName'].toString()}",
+                      photoName: docData['photoName'].toString(),
                     );
                   });
             }
