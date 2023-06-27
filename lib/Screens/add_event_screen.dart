@@ -42,167 +42,169 @@ class _AddEvent extends State<AddEvent> {
     final double deviceHeight = MediaQuery.sizeOf(context).height;
     final double deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
+      //appBar: AppBar(),
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Create an event for the community",
-                style: kButtonTextStyle.copyWith(fontSize: 25),
-                textAlign: TextAlign.center,
+              Padding(
+                padding: EdgeInsets.only(top : deviceHeight / 30),
+                child: Text(
+                  "Create an event for the community",
+                  style: kButtonTextStyle.copyWith(fontSize: 25),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Form(
                 key: formKey,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: deviceWidth / 25),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: deviceHeight / 25,
-                            ),
-                            Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  _showPicker(context);
-                                },
-                                child: CircleAvatar(
-                                  radius: deviceWidth / 5,
-                                  backgroundColor: _photo == null ? kButtonColor : Colors.white,
-                                  child: _photo != null
-                                      ? ClipRRect(
-                                          borderRadius: BorderRadius.circular(50),
-                                          child: Image.file(
-                                            _photo!,
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.circular(deviceWidth / 1.5)),
-                                          width: deviceWidth / 2.9,
-                                          height: deviceWidth / 2.9,
-                                          child: const Icon(
-                                            Icons.camera_alt,
-                                            color: Colors.black,
-                                          ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: deviceWidth / 25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: deviceHeight / 40,
+                          ),
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                _showPicker(context);
+                              },
+                              child: CircleAvatar(
+                                radius: deviceWidth / 5,
+                                backgroundColor: _photo == null ? kButtonColor : Colors.white,
+                                child: _photo != null
+                                    ? ClipRRect(
+                                        borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)),
+                                        child: Image.file(
+                                          fit: BoxFit.cover,
+                                          _photo!,
                                         ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: deviceHeight / 40,
-                        ),
-                        TextFormField(
-                          textInputAction: TextInputAction.next,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: fieldText,
-                          decoration: const InputDecoration(
-                              labelText: "Event Name",
-                              hintText: "Event Name",
-                              border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
-                          validator: (value) {
-                            if (value!.length < 3) return "Event name should contain more thsn 3 letters";
-                            return null;
-                          },
-                          onSaved: (data) => eventName = data,
-                        ),
-                        SizedBox(
-                          height: deviceHeight / 30,
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: fieldText2,
-                          maxLines: null,
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
-                              labelText: "Event Detail",
-                              hintMaxLines: 8,
-                              hintText: "Event Detail",
-                              border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
-                          onSaved: (data) => eventDetails = data,
-                        ),
-                        SizedBox(
-                          height: deviceHeight / 50,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Text("Event Date: "),
-                                  ElevatedButton.icon(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black54, // Background color
-                                        foregroundColor: kButtonColor, // Text Color (Foreground color)
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(deviceWidth / 1.5)),
+                                        width: deviceWidth / 2.9,
+                                        height: deviceWidth / 2.9,
+                                        child: const Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                      onPressed: () async {
-                                        final DateTime? picked = await showDatePicker(
-                                            context: context,
-                                            initialDate: eventDate,
-                                            firstDate: eventDate.subtract(const Duration(days: 20)),
-                                            lastDate: eventDate.add(const Duration(days: 30)));
-                                        if (picked != null && picked != eventDate) {
-                                          setState(() {
-                                            eventDate = picked;
-                                          });
-                                        }
-                                        ;
-                                      },
-                                      icon: const Icon(Icons.calendar_today),
-                                      label: Text("${formatString(eventDate.toString())} ")),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: deviceHeight / 25),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black54, // Background color
-                                  foregroundColor: kButtonColor, // Text Color (Foreground color)
-                                ),
-                                onPressed: () => {
-                                  _saveFormData(),
-                                  clearText(),
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Bilgi'),
-                                        content: const Text('İşlem tamamlandı.'),
-                                        actions: [
-                                          TextButton(
-                                            child: const Text('Tamam'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  )
-                                },
-                                icon: const Icon(Icons.check),
-                                label: const Text("Create Event"),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: deviceHeight / 40,
+                      ),
+                      TextFormField(
+                        textInputAction: TextInputAction.next,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: fieldText,
+                        decoration: const InputDecoration(
+                            labelText: "Event Name",
+                            hintText: "Event Name",
+                            border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
+                        validator: (value) {
+                          if (value!.length < 3) return "Event name should contain more thsn 3 letters";
+                          return null;
+                        },
+                        onSaved: (data) => eventName = data,
+                      ),
+                      SizedBox(
+                        height: deviceHeight / 40,
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: fieldText2,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+                            labelText: "Event Detail",
+                            hintMaxLines: 8,
+                            hintText: "Event Detail",
+                            border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
+                        onSaved: (data) => eventDetails = data,
+                      ),
+                      SizedBox(
+                        height: deviceHeight / 40,
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text("Event Date: "),
+                              ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black54, // Background color
+                                    foregroundColor: kButtonColor, // Text Color (Foreground color)
+                                  ),
+                                  onPressed: () async {
+                                    final DateTime? picked = await showDatePicker(
+                                        context: context,
+                                        initialDate: eventDate,
+                                        firstDate: eventDate.subtract(const Duration(days: 20)),
+                                        lastDate: eventDate.add(const Duration(days: 30)));
+                                    if (picked != null && picked != eventDate) {
+                                      setState(() {
+                                        eventDate = picked;
+                                      });
+                                    }
+                                    ;
+                                  },
+                                  icon: const Icon(Icons.calendar_today),
+                                  label: Text("${formatString(eventDate.toString())} ")),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(height: deviceHeight / 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black54, // Background color
+                                foregroundColor: kButtonColor, // Text Color (Foreground color)
+                              ),
+                              onPressed: () => {
+                                _saveFormData(),
+                                clearText(),
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Bilgi'),
+                                      content: const Text('İşlem tamamlandı.'),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text('Tamam'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )
+                              },
+                              icon: const Icon(Icons.check),
+                              label: const Text("Create Event"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
