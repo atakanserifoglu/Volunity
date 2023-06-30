@@ -5,7 +5,7 @@ import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/entry_page.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/Screens/profileScreenMobile.dart';
+import 'package:volunity/Screens/profile_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/auth/utils.dart';
 import 'package:volunity/firebase_options.dart';

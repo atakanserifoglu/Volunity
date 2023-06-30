@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:volunity/Screens/login_screen.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/authentication_provider.dart';
@@ -51,7 +52,7 @@ class CustomRegisterPage extends ConsumerWidget {
             return Scaffold(
               body: SafeArea(
                 child: Container(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20,),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,7 +78,7 @@ class CustomRegisterPage extends ConsumerWidget {
                                       style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 20)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
+                                  padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
@@ -95,7 +96,7 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
+                                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     controller: passwordCtrl,
@@ -111,7 +112,7 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
+                                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     controller: passwordCtrl2,
                                     obscureText: true,
@@ -127,18 +128,52 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Container(
+                                  padding:EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.width / 25),
+                                  child: SizedBox(
                                     width: MediaQuery.of(context).size.width * 5,
                                     //height: MediaQuery.of(context).size.height * 0.2,
                                     child: ElevatedButton(
                                       onPressed: () {
                                         signUp(context, ref);
                                       },
-                                      child: const Text('Kayıt Ol'),
+                                      child:  Text('Kayıt Ol', style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18)),
                                     ),
                                   ),
                                 ),
+                                Padding(
+                                padding: EdgeInsets.symmetric( horizontal: MediaQuery.of(context).size.width / 25),
+                                child: Center(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          //backgroundColor: Colors.white,
+                                          ),
+                                      onPressed: () {
+                                          signInWithGoogle(ref);
+                                        },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'Assets/google_logo.png',
+                                            fit: BoxFit.cover,
+                                            width: MediaQuery.of(context).size.width / 8,
+                                            //height: MediaQuery.of(context).size.height * 0.08,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context).size.width / 20),
+                                            child: Text(
+                                              "Google ile giriş yap",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: MediaQuery.of(context).size.height * 0.02,
@@ -175,6 +210,21 @@ class CustomRegisterPage extends ConsumerWidget {
         },
       ),
     );
+  }
+    signInWithGoogle(ref) async {
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+
+      userDetailSetToFirebase(ref);
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+    }
   }
 
   Future<void> userDetailSetToFirebase(ref) async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/Screens/profileScreenMobile.dart';
+import 'package:volunity/Screens/profile_screen.dart';
 
 class BottomNavigationBarRiverpod extends ChangeNotifier {
 

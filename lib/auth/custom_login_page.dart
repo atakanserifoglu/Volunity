@@ -5,6 +5,7 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:volunity/Screens/login_screen.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/utils.dart';
@@ -51,7 +52,7 @@ class CustomLoginPage extends ConsumerWidget {
             return Scaffold(
               body: SafeArea(
                 child: Container(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20,),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,13 +108,53 @@ class CustomLoginPage extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * 5,
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  height: MediaQuery.of(context).size.height / 15,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       signIn(emailCtrl, passwordCtrl, context);
                                     },
-                                    child: const Text('Giriş Yap'),
+                                    child: Text(
+                                      'Giriş Yap',
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                    ),
                                   ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                child: Center(
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          //backgroundColor: Colors.white,
+                                          ),
+                                      onPressed: () {
+                                          signInWithGoogle();
+                                        
+                                        },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'Assets/google_logo.png',
+                                            fit: BoxFit.cover,
+                                            width: MediaQuery.of(context).size.width / 8,
+                                            //height: MediaQuery.of(context).size.height * 0.08,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context).size.width / 20),
+                                            child: Text(
+                                              "Google ile giriş yap",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
                                 ),
                               ),
                               Padding(
@@ -188,6 +229,21 @@ class CustomLoginPage extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+
+
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+    }
   }
 
   Future<void> signIn(TextEditingController emailCtrl, TextEditingController passwordCtrl, BuildContext context) async {
