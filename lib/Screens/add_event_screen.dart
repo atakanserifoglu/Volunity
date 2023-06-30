@@ -279,22 +279,28 @@ class _AddEvent extends State<AddEvent> {
         "photoName": urlPath,
         "eventID": uid,
       });
-    }
 
-    List<String> idList = <String>[];
-    CollectionReference _userCollectionReferance = FirebaseFirestore.instance.collection("users");
+      List<String> idList = <String>[];
+      CollectionReference _userCollectionReferance = FirebaseFirestore.instance.collection("users");
 
-    DocumentSnapshot<Object?> doc = await _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).get();
-    final data = doc.data() as Map<String, dynamic>;
-    List.from(data['eventIDS']).forEach(
-      (element) {
+      DocumentSnapshot<Object?> doc = await _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).get();
+      final data = doc.data() as Map<String, dynamic>;
+      if (data.containsKey('eventIDS')) {
+        // 'eventIDS' is already available.
+        for (var element in List.from(data['eventIDS'])) {
+          String data = element;
+          idList.add(data);
+        }
+      } else { //is not available 
+        data['eventIDS'] = [];
+        for (var element in List.from(data['eventIDS'])) {
         String data = element;
         idList.add(data);
-      },
-    );
-
-    idList.add(uid);
-    _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).update({"eventIDS": idList});
+      }
+      }
+      idList.add(uid);
+      _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).update({"eventIDS": idList});
+    }
   }
 
   void _showPicker(context) {

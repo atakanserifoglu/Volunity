@@ -86,7 +86,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
                         width: deviceWidth / 15,
                       ),
                       Text(
-                        "examplemail7@gmail.com",
+                        FirebaseAuth.instance.currentUser?.email ?? "Anonymous",
                         style: kButtonTextStyleSmall.copyWith(color: Colors.black, fontSize: 17),
                       ),
                     ],
