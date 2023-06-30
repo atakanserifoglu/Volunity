@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -52,7 +53,9 @@ class CustomLoginPage extends ConsumerWidget {
             return Scaffold(
               body: SafeArea(
                 child: Container(
-                  padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20,),
+                  padding: EdgeInsets.all(
+                    MediaQuery.of(context).size.width / 20,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,8 +119,10 @@ class CustomLoginPage extends ConsumerWidget {
                                     },
                                     child: Text(
                                       'Giriş Yap',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(color: Colors.teal[800], fontSize: 18),
                                     ),
                                   ),
                                 ),
@@ -130,9 +135,8 @@ class CustomLoginPage extends ConsumerWidget {
                                           //backgroundColor: Colors.white,
                                           ),
                                       onPressed: () {
-                                          signInWithGoogle();
-                                        
-                                        },
+                                        signInWithGoogle(ref);
+                                      },
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -231,19 +235,27 @@ class CustomLoginPage extends ConsumerWidget {
     );
   }
 
-  signInWithGoogle() async {
+  signInWithGoogle(ref) async {
     try {
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
       final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
-
-      return await FirebaseAuth.instance.signInWithCredential(credential);
-
-
+      final user = await FirebaseAuth.instance.signInWithCredential(credential);
+      if (user.additionalUserInfo!.isNewUser==true) {
+        userDetailSetToFirebase(ref, user.user!.email.toString());
+      }
+      return user;
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }
+  }
+
+  Future<void> userDetailSetToFirebase(ref, String userEmail) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({'isOrganizer': ref.watch(authNotifierProvider).isOrganizer, 'email': userEmail});
   }
 
   Future<void> signIn(TextEditingController emailCtrl, TextEditingController passwordCtrl, BuildContext context) async {

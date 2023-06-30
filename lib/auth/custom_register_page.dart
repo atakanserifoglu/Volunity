@@ -11,7 +11,6 @@ import 'package:volunity/auth/authentication_provider.dart';
 import 'package:volunity/auth/custom_login_page.dart';
 import 'package:volunity/auth/utils.dart';
 
-
 import '../main.dart';
 import '../utilities/constants.dart';
 
@@ -52,7 +51,9 @@ class CustomRegisterPage extends ConsumerWidget {
             return Scaffold(
               body: SafeArea(
                 child: Container(
-                  padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20,),
+                  padding: EdgeInsets.all(
+                    MediaQuery.of(context).size.width / 20,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,7 +79,9 @@ class CustomRegisterPage extends ConsumerWidget {
                                       style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 20)),
                                 ),
                                 Padding(
-                                  padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: MediaQuery.of(context).size.height * 0.005,
+                                      horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
@@ -96,7 +99,9 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: MediaQuery.of(context).size.height * 0.005,
+                                      horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     controller: passwordCtrl,
@@ -112,7 +117,9 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.005, horizontal: MediaQuery.of(context).size.width / 20),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: MediaQuery.of(context).size.height * 0.005,
+                                      horizontal: MediaQuery.of(context).size.width / 20),
                                   child: TextFormField(
                                     controller: passwordCtrl2,
                                     obscureText: true,
@@ -128,7 +135,9 @@ class CustomRegisterPage extends ConsumerWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding:EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.width / 25),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: MediaQuery.of(context).size.height * 0.008,
+                                      horizontal: MediaQuery.of(context).size.width / 25),
                                   child: SizedBox(
                                     width: MediaQuery.of(context).size.width * 5,
                                     //height: MediaQuery.of(context).size.height * 0.2,
@@ -136,44 +145,48 @@ class CustomRegisterPage extends ConsumerWidget {
                                       onPressed: () {
                                         signUp(context, ref);
                                       },
-                                      child:  Text('Kayıt Ol', style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18)),
+                                      child: Text('Kayıt Ol',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(color: Colors.teal[800], fontSize: 18)),
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                padding: EdgeInsets.symmetric( horizontal: MediaQuery.of(context).size.width / 25),
-                                child: Center(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          //backgroundColor: Colors.white,
-                                          ),
-                                      onPressed: () {
+                                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 25),
+                                  child: Center(
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            //backgroundColor: Colors.white,
+                                            ),
+                                        onPressed: () {
                                           signInWithGoogle(ref);
                                         },
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'Assets/google_logo.png',
-                                            fit: BoxFit.cover,
-                                            width: MediaQuery.of(context).size.width / 8,
-                                            //height: MediaQuery.of(context).size.height * 0.08,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: MediaQuery.of(context).size.width / 20),
-                                            child: Text(
-                                              "Google ile giriş yap",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'Assets/google_logo.png',
+                                              fit: BoxFit.cover,
+                                              width: MediaQuery.of(context).size.width / 8,
+                                              //height: MediaQuery.of(context).size.height * 0.08,
                                             ),
-                                          ),
-                                        ],
-                                      )),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: MediaQuery.of(context).size.width / 20),
+                                              child: Text(
+                                                "Google ile giriş yap",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(color: Colors.teal[800], fontSize: 18),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ),
                                 ),
-                              ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: MediaQuery.of(context).size.height * 0.02,
@@ -211,7 +224,8 @@ class CustomRegisterPage extends ConsumerWidget {
       ),
     );
   }
-    signInWithGoogle(ref) async {
+
+  signInWithGoogle(ref) async {
     try {
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
@@ -221,7 +235,6 @@ class CustomRegisterPage extends ConsumerWidget {
       userDetailSetToFirebase(ref);
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
-
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }
