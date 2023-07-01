@@ -48,12 +48,12 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 
 * **Sprint review:**
 * Lokasyon servisi kullanmak uygulamanın verimini arttıracağından uygulamamıza entegre edilmesine karar verilmiştir ve sonraki sprintlerde üzerinde durulması üzerine hemfikir olunmuştur. Veritabanı uygulamamızın önemli bir kısmını oluşturduğundan kurulum işlemi bu sprintte yapılmıştır ve detaylı entegrasyon sonraki sprinte aktarılmıştır. Çıkardığımız sayfalar bir sıkıntı olmadan çalışmaktadır.
-* 
+  
 * **Sprint retrospective:**
 *  Ekip üyeleri arasındaki iletişim ve işbirliğini geliştirmek düzenli online toplantı yapılmasına karar verilmiştir.
 *  Yazılan kodların pushlanmadan önce çalışırlığından emin olunmalı
 * Diğer notlar: N/A
-* 
+  
 # Sprint 2
 * **Puan tamamlama mantığı:** Yaklaşık 150 puanın Sprint 2'de tamamlanması gerektiğine karar verilmiştir.
 * **Sprint 2'de tamamlanması tahmin edilen puan:** 100 puan
@@ -66,16 +66,16 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/071e8e1e-6573-429b-bc2c-9fb4043478e2)
 
 * **Ürün durumu:** Ekran Görüntüleri:
-* 
+  
 * Video:
-* 
+  
 * **Sprint review:**
 * Yeni eklenen ve güncellenen sayfalar problemsiz çalışmakta/çalışmaya devam etmektedir. Gelecek sprint için lokasyon özelliğinin eklenmesine ve tasarım dilinin bütüncülleştirilmesine karar verilmiştir. Log-in ekranı özelleştirilmiş ve hesap türü seçimiyle farklı hesaplara sahip kullanıcılara farklı izinler verilmesi planlanmıştır. Gelecek sprintte oluşturulmuş olan ekranların geliştirilmesi planlanmıştır.
-* 
+  
 * **Sprint retrospective:**
 *  Ekip üyeleri arasındaki iletişim ve işbirliğini geliştirmek adına düzenlenen toplantıların devamına karar verilmiştir.
 *  Gelecek sprintte yapılacaklarla ilgili tekrar toplantı yapılması planlanmıştır.
 *  Yazılan kodların pushlanmadan önce çalışırlığından emin olunmalı
 *  Düzenli olarak kodun güncelliğinden emin olunmalı
-*  
+  
 * Diğer notlar: N/A
