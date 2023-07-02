@@ -66,9 +66,14 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/071e8e1e-6573-429b-bc2c-9fb4043478e2)
 
 * **Ürün durumu:** Ekran Görüntüleri:
-  
-* Video:
-  
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/78f4eb8f-7da1-491e-99ee-5da91d488dc0)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/f3ac49f6-779d-447c-8fa6-1c5ece958f94)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/01fffd4e-98d8-499d-a9a3-5e023c109d14)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/cfb7991b-3ae4-4934-81c0-4a30084bda64)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/dc4e320d-5bb7-4b3a-8aa9-959804620602)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/7721d119-9746-43a8-9cbc-e077816f4e0f)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/fb3a0520-e038-4b25-9b3f-f7d5485a9f39)
+
 * **Sprint review:**
 * Yeni eklenen ve güncellenen sayfalar problemsiz çalışmakta/çalışmaya devam etmektedir. Gelecek sprint için lokasyon özelliğinin eklenmesine ve tasarım dilinin bütüncülleştirilmesine karar verilmiştir. Log-in ekranı özelleştirilmiş ve hesap türü seçimiyle farklı hesaplara sahip kullanıcılara farklı izinler verilmesi planlanmıştır. Gelecek sprintte oluşturulmuş olan ekranların geliştirilmesi planlanmıştır.
   
