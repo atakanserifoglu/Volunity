@@ -33,7 +33,7 @@ class EntryPage extends StatelessWidget {
               const Column(
                 children: [
                   Text("VOLUNITY",style: kTitleStyle,),
-                  Text("Lorem ipsum dolor sit amet, consectetur",style: kTitleTextStyle,textAlign: TextAlign.center,),
+                  Text("İyilik için birlikte",style: kTitleTextStyle,textAlign: TextAlign.center,),
                 ],
               ),
               Padding(
