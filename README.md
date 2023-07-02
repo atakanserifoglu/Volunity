@@ -55,8 +55,8 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 * Diğer notlar: N/A
   
 # Sprint 2
-* **Puan tamamlama mantığı:** Yaklaşık 150 puanın Sprint 2'de tamamlanması gerektiğine karar verilmiştir.
-* **Sprint 2'de tamamlanması tahmin edilen puan:** 100 puan
+* **Puan tamamlama mantığı:** 2. sprint'teki görevlerin ağırlığına göre yaklaşık 150 puanın Sprint 2'de tamamlanması gerektiğine karar verilmiştir.
+* **Sprint 2'de tamamlanması tahmin edilen puan:** 150 puan
 * **Backlog düzeni ve Story seçimleri:** Backlog öncelikli hikayelere göre düzenlenmiştir.
 * **Daily scrum:** Scrum toplantılarının zaman ayarlamasından dolayı WhatsApp üzerinden yapılmasına devam edilmesine karar verilmiştir.
 * **Sprint board update:** * Sprint board ekran görüntüleri
