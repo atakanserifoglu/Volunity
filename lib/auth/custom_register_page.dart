@@ -231,10 +231,12 @@ class CustomRegisterPage extends ConsumerWidget {
       final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
       final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+      final user = await FirebaseAuth.instance.signInWithCredential(credential);
+      if (user.additionalUserInfo!.isNewUser==true) {
+        userDetailSetToFirebase(ref);
+      }
 
-      userDetailSetToFirebase(ref);
-
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      return user;
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }
