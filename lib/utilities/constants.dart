@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 
 const kButtonColor = Color(0XFF49F457);
 
+const List<String> cities = [
+    'None',
+    'Adana',
+    'Adıyaman',
+    'Afyonkarahisar',
+    'İzmir',
+    'Ankara',
+    'İstanbul',
+    'Bursa',
+
+  ];
+
 
 const kButtonTextStyle = TextStyle(
   fontFamily: 'DMSans',

@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:volunity/Screens/add_profile_screen.dart';
 import 'package:volunity/Screens/login_screen.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/authentication_provider.dart';
@@ -46,7 +47,7 @@ class CustomRegisterPage extends ConsumerWidget {
             );
           } else if (snapshot.hasData) {
             //User signed
-            return const MainScaffold();
+            return const AddProfileScreen();
           } else {
             return Scaffold(
               body: SafeArea(
@@ -140,12 +141,13 @@ class CustomRegisterPage extends ConsumerWidget {
                                       horizontal: MediaQuery.of(context).size.width / 25),
                                   child: SizedBox(
                                     width: MediaQuery.of(context).size.width * 5,
-                                    //height: MediaQuery.of(context).size.height * 0.2,
+                                    height: MediaQuery.of(context).size.height / 15,
                                     child: ElevatedButton(
                                       onPressed: () {
                                         signUp(context, ref);
+                                        
                                       },
-                                      child: Text('Kayıt Ol',
+                                      child: Text('Kayıt Ol ve Devam Et   -->',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge
@@ -232,7 +234,7 @@ class CustomRegisterPage extends ConsumerWidget {
 
       final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
       final user = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (user.additionalUserInfo!.isNewUser==true) {
+      if (user.additionalUserInfo!.isNewUser == true) {
         userDetailSetToFirebase(ref);
       }
 

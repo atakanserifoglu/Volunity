@@ -11,6 +11,8 @@ import 'package:volunity/auth/utils.dart';
 import 'package:volunity/firebase_options.dart';
 import 'package:volunity/theme/default_theme.dart';
 
+import 'Screens/addProfileScreen.dart';
+import 'Screens/add_profile_screen.dart';
 import 'Screens/select_account_screen.dart';
 import 'Screens/splash_page.dart';
 import 'auth/custom_login_page.dart';
@@ -45,6 +47,7 @@ class MyApp extends StatelessWidget {
         CustomRegisterPage.id : (context) =>  CustomRegisterPage(),
         SelectAccount.id : (context) => const SelectAccount(),
         EntryPage.id : (context) => const EntryPage(),
+        AddProfileScreen.id : (context) => const AddProfileScreen(),
         AddEvent.id  : (context) =>  const AddEvent(),
         //sign-in.id :(context) => 
       },
