@@ -55,15 +55,17 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 * Diğer notlar: N/A
   
 # Sprint 2
-* **Puan tamamlama mantığı:** Yaklaşık 150 puanın Sprint 2'de tamamlanması gerektiğine karar verilmiştir.
-* **Sprint 2'de tamamlanması tahmin edilen puan:** 100 puan
+* **Puan tamamlama mantığı:** 2. sprint'teki görevlerin ağırlığına göre yaklaşık 150 puanın Sprint 2'de tamamlanması gerektiğine karar verilmiştir.
+* **Sprint 2'de tamamlanması tahmin edilen puan:** 150 puan
 * **Backlog düzeni ve Story seçimleri:** Backlog öncelikli hikayelere göre düzenlenmiştir.
-* **Daily scrum:** Scrum toplantılarının zaman ayarlamasından dolayı WhatsApp üzerinden yapılmasına devam edilmesine karar verilmiştir.
+* **Daily scrum:** Scrum toplantılarının zaman ayarlamasından dolayı WhatsApp üzerinden yapılmasına devam edilmesine karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır: [_chat.txt](https://github.com/atakanserifoglu/Volunity/files/11931600/_chat.txt)
+
 * **Sprint board update:** * Sprint board ekran görüntüleri
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/a5d2c710-ab51-4014-b410-81b762ae88f4)
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/7c91364a-8a67-4989-9673-217339056c1e)
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/ad4f724b-f423-4508-a8cd-2380143564d9)
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/071e8e1e-6573-429b-bc2c-9fb4043478e2)
+
 
 * **Ürün durumu:** Ekran Görüntüleri:
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/78f4eb8f-7da1-491e-99ee-5da91d488dc0)
