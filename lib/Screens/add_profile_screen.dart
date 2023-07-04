@@ -82,13 +82,13 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
                         contentPadding: EdgeInsets.symmetric(vertical: deviceHeight / 20, horizontal: deviceWidth / 30),
                         labelText: "Hakkında",
                         hintText: "Kendinden biraz bahset",
-                        border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
+                        border: const OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
                   ),
                   SizedBox(
                     height: deviceHeight / 30,
                   ),
                   DropdownButton(
-                    hint: Text('Bir il seçin'),
+                    hint: const Text('Bir il seçin'),
                     value: watch.city,
                     onChanged: (newValue) {
                       read.changedCity(newValue.toString());
@@ -145,7 +145,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
     }
     try {
       final data = {
-        "name and lastName": _fieldTextController.text.trim(),
+        "name": _fieldTextController.text.trim(),
         "about": _fieldTextController2.text.trim(),
         "currentCity": watch.city,
         "interest": _fieldTextController3.text.trim(),
