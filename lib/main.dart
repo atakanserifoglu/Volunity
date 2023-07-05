@@ -34,11 +34,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: Utils.messengerKey,
       title: 'Volunity',
-      theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),// Defaul theme kullanmak için : DefaultTheme(context).theme,
+      theme: DefaultTheme(context).theme,
       
+
       routes: {
         MainScaffold.id :(context) => const MainScaffold(),
         MainScreen.id: (context) =>   MainScreen(),
@@ -51,7 +49,7 @@ class MyApp extends StatelessWidget {
         AddEvent.id  : (context) =>  const AddEvent(),
         //sign-in.id :(context) => 
       },
-      home:  const SplashPage(),
+      home: const SplashPage(),
     );
   }
 }

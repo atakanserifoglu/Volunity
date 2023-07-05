@@ -65,7 +65,6 @@ class _BottomBarState extends ConsumerState<BottomBar> {
         ),
       ],
       currentIndex: watch.currentIndex,
-      selectedItemColor: Colors.amber[800],
       onTap: (index) => read.setCurrentIndex(index),
     );
   }

@@ -24,214 +24,232 @@ class CustomLoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var read = ref.read(authNotifierProvider);
-    return Theme(
-      data: ThemeData(
-        useMaterial3: true,
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-      child: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.hasError.toString()),
-            );
-          } else if (snapshot.hasData) {
-            //User signed
-            return const MainScaffold();
-          } else {
-            return Scaffold(
-              body: SafeArea(
-                child: Container(
-                  padding: EdgeInsets.all(
-                    MediaQuery.of(context).size.width / 20,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(flex: 2, child: Image.asset('Assets/logo.png')),
-                      Expanded(
-                        flex: 7,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            //mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text(snapshot.hasError.toString()),
+          );
+        } else if (snapshot.hasData) {
+          //User signed
+          return const MainScaffold();
+        } else {
+          return Scaffold(
+            body: SafeArea(
+              child: Container(
+                padding: EdgeInsets.all(
+                  MediaQuery.of(context).size.width / 20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                        flex: 2,
+                        child: Image.asset(
+                          'Assets/volunitylogocrop.png',
+                        )),
+                    Expanded(
+                      flex: 7,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.height / 40, 0,
+                                    MediaQuery.of(context).size.height / 100),
+                                child: Text("Giriş yap",
+                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 30)),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Padding(
                                 padding: EdgeInsets.fromLTRB(
-                                  MediaQuery.of(context).size.width * 0.05,
-                                  MediaQuery.of(context).size.height * 0.1,
+                                  0,
+                                  0,
                                   0,
                                   MediaQuery.of(context).size.height * 0.03,
                                 ),
-                                child: Text("Giriş yapma ekranı", style: Theme.of(context).textTheme.bodyLarge),
+                                child: Text("Hoş geldiniz!",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(fontSize: 20, fontWeight: FontWeight.w300)),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.08,
-                                  child: TextField(
-                                    textInputAction: TextInputAction.next,
-                                    keyboardType: TextInputType.emailAddress,
-                                    controller: emailCtrl,
-                                    decoration: const InputDecoration(
-                                      hintStyle: TextStyle(fontSize: 14),
-                                      hintText: 'Email',
-                                      prefixIcon: Icon(Icons.person),
-                                    ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10, right: 15, left: 15),
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.08,
+                                child: TextField(
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.emailAddress,
+                                  controller: emailCtrl,
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height / 50),
+                                    hintStyle: const TextStyle(fontSize: 14),
+                                    hintText: 'Email',
+                                    prefixIcon: const Icon(Icons.person),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.08,
-                                  child: TextField(
-                                    controller: passwordCtrl,
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
-                                      hintStyle: TextStyle(fontSize: 14),
-                                      hintText: 'Şifre',
-                                      prefixIcon: Icon(Icons.lock),
-                                    ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.08,
+                                child: TextField(
+                                  controller: passwordCtrl,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height / 50),
+                                    hintStyle: const TextStyle(fontSize: 14),
+                                    hintText: 'Şifre',
+                                    prefixIcon: const Icon(Icons.lock),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height: MediaQuery.of(context).size.height / 15,
-                                  child: ElevatedButton(
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 5,
+                                      height: MediaQuery.of(context).size.height / 15,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF367465),
+                                    ),
+                                  onPressed: () {
+                                    signIn(emailCtrl, passwordCtrl, context);
+                                  },
+                                  child: Text(
+                                    'Giriş yap',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(color: Colors.white, fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Center(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        //backgroundColor: Colors.white,
+                                        ),
                                     onPressed: () {
-                                      signIn(emailCtrl, passwordCtrl, context);
+                                      signInWithGoogle(ref);
                                     },
-                                    child: Text(
-                                      'Giriş Yap',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(color: Colors.teal[800], fontSize: 18),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Center(
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          //backgroundColor: Colors.white,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'Assets/google_logo.png',
+                                          fit: BoxFit.cover,
+                                          width: MediaQuery.of(context).size.width / 8,
+                                          //height: MediaQuery.of(context).size.height * 0.08,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 20),
+                                          child: Text(
+                                            "Google ile giriş yap",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.copyWith(color: Colors.teal[800], fontSize: 18),
                                           ),
-                                      onPressed: () {
-                                        signInWithGoogle(ref);
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'Assets/google_logo.png',
-                                            fit: BoxFit.cover,
-                                            width: MediaQuery.of(context).size.width / 8,
-                                            //height: MediaQuery.of(context).size.height * 0.08,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: MediaQuery.of(context).size.width / 20),
-                                            child: Text(
-                                              "Google ile giriş yap",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(color: Colors.teal[800], fontSize: 18),
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
+                                        ),
+                                      ],
+                                    )),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height * 0.05,
-                                  bottom: MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                        text: "Bir hesabınız yok mu? ",
-                                        style: Theme.of(context).textTheme.bodyMedium,
-                                        children: [
-                                          TextSpan(
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = () {
-                                                  Navigator.pushNamedAndRemoveUntil(
-                                                      context, SelectAccount.id, (route) => false);
-                                                },
-                                              text: 'Kayıt olun',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(decoration: TextDecoration.underline)),
-                                        ]),
-                                  ),
-                                ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.05,
+                                bottom: MediaQuery.of(context).size.height * 0.01,
                               ),
-                              Center(
+                              child: Center(
                                 child: RichText(
                                   text: TextSpan(
-                                    text: "Ve ya",
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
+                                      text: "Bir hesabınız yok mu? ",
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      children: [
+                                        TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Navigator.pushNamedAndRemoveUntil(
+                                                    context, SelectAccount.id, (route) => false);
+                                              },
+                                            text: 'Kaydolun',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(decoration: TextDecoration.underline,decorationColor: const Color(0xFF367465), color: const Color(0xFF367465))),
+                                      ]),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                child: Center(
-                                  child: RichText(
-                                    text: TextSpan(
-                                        text: "Misafir olarak ",
-                                        style: Theme.of(context).textTheme.bodyMedium,
-                                        children: [
-                                          TextSpan(
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = () {
-                                                  Navigator.pushNamedAndRemoveUntil(
-                                                      context, MainScaffold.id, (route) => false);
-                                                },
-                                              text: 'devam edin',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(decoration: TextDecoration.underline)),
-                                        ]),
-                                  ),
+                            ),
+                            Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: "veya",
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height * 0.01,
+                              ),
+                              child: Center(
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: "misafir olarak ",
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      children: [
+                                        TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Navigator.pushNamedAndRemoveUntil(
+                                                    context, MainScaffold.id, (route) => false);
+                                              },
+                                            text: 'devam edin',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(decoration: TextDecoration.underline)),
+                                      ]),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 
@@ -242,7 +260,7 @@ class CustomLoginPage extends ConsumerWidget {
 
       final credential = GoogleAuthProvider.credential(accessToken: gAuth.accessToken, idToken: gAuth.idToken);
       final user = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (user.additionalUserInfo!.isNewUser==true) {
+      if (user.additionalUserInfo!.isNewUser == true) {
         userDetailSetToFirebase(ref, user.user!.email.toString());
       }
       return user;

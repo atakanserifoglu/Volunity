@@ -30,10 +30,10 @@ class EntryPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0).copyWith(top: deviceHeight/16),
           child: Column(
             children: [
-              const Column(
+               Column(
                 children: [
-                  Text("VOLUNITY",style: kTitleStyle,),
-                  Text("İyilik için birlikte",style: kTitleTextStyle,textAlign: TextAlign.center,),
+                  Text("Volunity",style: kTitleStyle.copyWith(fontSize: 48),),
+                  Text("İyilik için birlikte",style: kTitleTextStyle.copyWith(fontSize: 20 , color: Colors.black54, ),textAlign: TextAlign.center, ),
                 ],
               ),
               Padding(
@@ -45,15 +45,15 @@ class EntryPage extends StatelessWidget {
                       height: deviceHeight / 12,
                       child: DecoratedBox(
                         decoration:  BoxDecoration(
-                          color: const Color.fromRGBO(240, 240, 240, 0.95),
+                          color: kButtonSecondColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: TextButton(
-                          style: kButtonStyle,
+                          
                           onPressed: () {
                             Navigator.pushNamedAndRemoveUntil(context, CustomLoginPage.id,(route)=> false);
                           },
-                          child: Text('Log In',style: kButtonTextStyleSmall.copyWith(color: Colors.black),),
+                          child: Text('Giriş Yap',style: kButtonTextStyleSmall.copyWith(color: Colors.grey[800]),),
                         ),
                       ),
                     ),
@@ -69,11 +69,10 @@ class EntryPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: TextButton(
-                          style: kButtonStyle,
                           onPressed: () {
                             Navigator.pushNamedAndRemoveUntil(context, SelectAccount.id,(route)=> false);
                           },
-                          child: Text('Register',style: kButtonTextStyleSmall.copyWith(color: Colors.black),),
+                          child: Text('Kayıt Ol',style: kButtonTextStyleSmall.copyWith(color: Colors.grey[800]),),
                         ),
                       ),
                     ),

@@ -19,60 +19,87 @@ class SelectAccount extends ConsumerWidget {
     return Scaffold(
       //backgroundColor: Colors.grey[400],
       body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: deviceWidth / 15, vertical: deviceHeight / 15),
+          padding: EdgeInsets.symmetric(horizontal: deviceWidth / 8, vertical: deviceHeight / 15),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             SizedBox(
               height: deviceHeight / 15,
             ),
             const Text(
-              "Choose an",
-              style: kButtonTextStyle,
-            ),
-            const Text("account type:", style: kButtonTextStyle),
-            SizedBox(
-              height: deviceHeight / 20,
-            ),
-            SizedBox(
-              height: deviceHeight / 8,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextButton(
-                  style: kButtonStyle,
-                  onPressed: () {
-                    ref.read(authNotifierProvider).notOrganizer();
-                    Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
-                  },
-                  child: const Text(
-                    'Personal',
-                    style: kButtonTextStyleSmall,
-                  ),
-                ),
+              "Volunity’de bireysel hesabınızı oluşturarak gönüllü olabilir veya kurumsal hesap oluşturarak gönüllülerle bir araya gelebilirsiniz.",
+              style: TextStyle(
+                color: Color(0xFF636363),
+                fontSize: 20,
+                fontFamily: 'DMSans',
+                fontWeight: FontWeight.w400,
               ),
             ),
-            SizedBox(
-              height: deviceHeight / 45,
-            ),
-            SizedBox(
-              height: deviceHeight / 8,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextButton(
-                  style: kButtonStyle,
-                  onPressed: () {
-                    ref.read(authNotifierProvider).organizer();
-                    Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
-                  },
-                  child: const Text(
-                    'Organization',
-                    style: kButtonTextStyleSmall,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Bir hesap türü seçin:",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: deviceHeight / 45,
+                  ),
+                  SizedBox(
+                    height: deviceHeight / 12,
+                    width: deviceWidth / 1,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: kThemeColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          ref.read(authNotifierProvider).notOrganizer();
+                          Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
+                        },
+                        child: Text(
+                          'Bireysel',
+                          style: kButtonTextStyleSmall.copyWith(color: Colors.grey[800]),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: deviceHeight / 45,
+                  ),
+                  SizedBox(
+                    height: deviceHeight / 12,
+                    width: deviceWidth / 1,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: kThemeColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          ref.read(authNotifierProvider).organizer();
+                          Navigator.pushNamedAndRemoveUntil(context, CustomRegisterPage.id, (route) => false);
+                        },
+                        child: Text(
+                          'Kurumsal',
+                          style: kButtonTextStyleSmall.copyWith(color: Colors.grey[800]),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: deviceHeight / 45,
+                  ),
+                ],
               ),
             ),
           ])),

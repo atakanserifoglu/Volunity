@@ -52,6 +52,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
     final double deviceHeight = MediaQuery.sizeOf(context).height;
     final double deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       //appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -69,7 +70,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
               Form(
                 key: formKey,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: deviceWidth / 25),
+                  padding: EdgeInsets.symmetric(horizontal: deviceWidth / 15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,8 +121,8 @@ class _AddEvent extends ConsumerState<AddEvent> {
                         controller: fieldText,
                         decoration: const InputDecoration(
                             labelText: "Event Name",
-                            hintText: "Event Name",
-                            border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
+                            
+                            ),
                         validator: (value) {
                           if (value!.length < 3) return "Event name should contain more thsn 3 letters";
                           return null;
@@ -135,12 +136,11 @@ class _AddEvent extends ConsumerState<AddEvent> {
                         keyboardType: TextInputType.emailAddress,
                         controller: fieldText2,
                         maxLines: null,
-                        decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: deviceHeight / 30, horizontal: 10.0),
                             labelText: "Event Detail",
                             hintMaxLines: 8,
-                            hintText: "Event Detail",
-                            border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
+                            ),
                         onSaved: (data) => eventDetails = data,
                       ),
                       SizedBox(
@@ -154,8 +154,8 @@ class _AddEvent extends ConsumerState<AddEvent> {
                               const Text("Event Date: "),
                               ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black54, // Background color
-                                    foregroundColor: kButtonColor, // Text Color (Foreground color)
+                                    backgroundColor: const Color(0xFFecf4f3), // Background color
+                                    foregroundColor: kThemeDarkColor, // Text Color (Foreground color)
                                   ),
                                   onPressed: () async {
                                     final DateTime? picked = await showDatePicker(
@@ -204,8 +204,8 @@ class _AddEvent extends ConsumerState<AddEvent> {
                             width: MediaQuery.of(context).size.width / 2,
                             child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black54, // Background color
-                                foregroundColor: kButtonColor, // Text Color (Foreground color)
+                                backgroundColor: const Color(0xFFecf4f3), // Background color
+                                foregroundColor: kThemeDarkColor, // Text Color (Foreground color)
                               ),
                               onPressed: () => {
                                 _saveFormData(),

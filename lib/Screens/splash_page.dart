@@ -31,33 +31,32 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 150,
-              width: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('Assets/logo.png'),
-                  fit: BoxFit.fill,
+            Padding(
+              padding: EdgeInsets.symmetric(vertical : MediaQuery.of(context).size.height / 5,),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 4,
+                width: MediaQuery.of(context).size.width * 0.5,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('Assets/logo.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top:30.0),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  WavyAnimatedText(
-                    'Volunity',
-                    textStyle: kButtonTextStyle.copyWith(fontWeight: FontWeight.w600)
-                  ),
-                ],
-              ),
+            AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'Volunity',
+                  textStyle: kVolunityText,
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {

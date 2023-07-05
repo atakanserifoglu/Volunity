@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-const kButtonColor = Color(0XFF49F457);
+const kButtonColor = Color.fromARGB(255, 153, 220, 151);
+const kThemeDarkColor = Color(0xFF367465);
+const kThemeColor = Color(0xFFBBDEBA);
+const kButtonSecondColor=  Color.fromRGBO(240, 240, 240, 0.95);
 
 const List<String> cities = [
   'None',
@@ -94,6 +97,9 @@ const kButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
+const kVolunityText =
+    TextStyle(fontFamily: 'DMSans', fontWeight: FontWeight.w400, color: Color(0xFF367465), fontSize: 48, height: 0);
+
 const kButtonTextStyleSmall = TextStyle(
   fontFamily: 'DMSans',
   fontSize: 22.0,
@@ -109,7 +115,7 @@ const kGuestTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 const kTitleTextStyle = TextStyle(
-  fontFamily: 'Poppins',
+  fontFamily: 'DMSans',
   fontSize: 15.0,
   fontWeight: FontWeight.w500,
   color: Colors.black87,
