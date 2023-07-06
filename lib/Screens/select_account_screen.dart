@@ -17,7 +17,7 @@ class SelectAccount extends ConsumerWidget {
     final deviceHeight = MediaQuery.sizeOf(context).height;
     final deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      //backgroundColor: Colors.grey[400],
+      //backgroundColor: Colors.grey[50],
       body: Padding(
           padding: EdgeInsets.symmetric(horizontal: deviceWidth / 8, vertical: deviceHeight / 15),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

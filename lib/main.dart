@@ -17,6 +17,7 @@ import 'Screens/select_account_screen.dart';
 import 'Screens/splash_page.dart';
 import 'auth/custom_login_page.dart';
 import 'auth/custom_register_page.dart';
+import 'auth/test.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

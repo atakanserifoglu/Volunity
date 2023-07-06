@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
@@ -41,97 +42,106 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
     var watch = ref.watch(addProfileScreenProvider);
     var read = ref.read(addProfileScreenProvider);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: deviceHeight / 10, horizontal: deviceWidth / 10),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Profilini oluştur",
-                      style: kButtonTextStyle.copyWith(fontSize: 25),
+          padding: EdgeInsets.fromLTRB(deviceWidth / 10, deviceHeight / 10, deviceWidth / 10, deviceHeight / 30),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Profilini oluştur",
+                            style: kButtonTextStyle.copyWith(fontSize: 25),
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 20,
+                        ),
+                        TextFormField(
+                          textInputAction: TextInputAction.next,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: _fieldTextController,
+                          decoration: const InputDecoration(
+                            labelText: "İsim ve Soyisim",
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 30,
+                        ),
+                        TextFormField(
+                          textInputAction: TextInputAction.next,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: _fieldTextController2,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: deviceHeight / 20, horizontal: deviceWidth / 30),
+                            labelText: "Hakkında",
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 30,
+                        ),
+                        DropdownButton(
+                          hint: const Text('Bir il seçin'),
+                          value: watch.city,
+                          onChanged: (newValue) {
+                            read.changedCity(newValue.toString());
+                          },
+                          items: cities.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 30,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          textInputAction: TextInputAction.next,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: _fieldTextController3,
+                          decoration: const InputDecoration(
+                            labelText: "İlgi alanların",
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 30,
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: deviceHeight / 20,
-                  ),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _fieldTextController,
-                    decoration: const InputDecoration(
-                        labelText: "İsim ve Soyisim",
-                        hintText: "İsim ve Soyisim",
-                        border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
-                  ),
-                  SizedBox(
-                    height: deviceHeight / 30,
-                  ),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _fieldTextController2,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: deviceHeight / 20, horizontal: deviceWidth / 30),
-                        labelText: "Hakkında",
-                        hintText: "Kendinden biraz bahset",
-                        border: const OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
-                  ),
-                  SizedBox(
-                    height: deviceHeight / 30,
-                  ),
-                  DropdownButton(
-                    hint: const Text('Bir il seçin'),
-                    value: watch.city,
-                    onChanged: (newValue) {
-                      read.changedCity(newValue.toString());
-                    },
-                    items: cities.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(
-                    height: deviceHeight / 30,
-                  ),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _fieldTextController3,
-                    decoration: const InputDecoration(
-                        labelText: "İlgi alanların",
-                        border: OutlineInputBorder(borderSide: BorderSide(color: kButtonColor))),
-                  ),
-                  SizedBox(
-                    height: deviceHeight / 30,
-                  ),
-                  Align(
-                    child: SizedBox(
-                      width: deviceWidth * 0.7,
-                      height: deviceHeight / 15,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          userProfileSetToFirebase(watch);
-                          Navigator.pushNamedAndRemoveUntil(context, MainScaffold.id,(route)=> false);
-                        },
-                        child: Text('Profili Tamamla',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18)),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                flex: 0,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: deviceWidth * 0.7,
+                    height: deviceHeight / 15,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        userProfileSetToFirebase(watch);
+                        Navigator.pushNamedAndRemoveUntil(context, MainScaffold.id, (route) => false);
+                      },
+                      child: Text('Profili Tamamla',
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.teal[800], fontSize: 18)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

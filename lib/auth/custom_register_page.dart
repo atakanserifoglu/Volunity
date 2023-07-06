@@ -148,7 +148,7 @@ class CustomRegisterPage extends ConsumerWidget {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top : MediaQuery.of(context).size.height * 0.02),
+                                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
                                 child: Column(
                                   children: [
                                     Padding(
