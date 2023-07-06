@@ -65,7 +65,7 @@ class EntryPage extends StatelessWidget {
                       height: deviceHeight / 12,
                       child: DecoratedBox(
                         decoration:  BoxDecoration(
-                          color: kButtonColor,
+                          color: kThemeColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: TextButton(

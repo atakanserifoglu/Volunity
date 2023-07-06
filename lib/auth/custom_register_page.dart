@@ -179,7 +179,7 @@ class CustomRegisterPage extends ConsumerWidget {
                                           horizontal: MediaQuery.of(context).size.width / 25),
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              // backgroundColor: Color(0xFF367465),
+                                              backgroundColor: kButtonColor,
                                               ),
                                           onPressed: () {
                                             signInWithGoogle(ref);

@@ -131,7 +131,7 @@ class CustomLoginPage extends ConsumerWidget {
                                       height: MediaQuery.of(context).size.height / 15,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF367465),
+                                      backgroundColor: kThemeDarkColor,
                                     ),
                                   onPressed: () {
                                     signIn(emailCtrl, passwordCtrl, context);
@@ -151,7 +151,7 @@ class CustomLoginPage extends ConsumerWidget {
                               child: Center(
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        //backgroundColor: Colors.white,
+                                        backgroundColor: kButtonColor,
                                         ),
                                     onPressed: () {
                                       signInWithGoogle(ref);
