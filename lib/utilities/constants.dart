@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kButtonColor = Color.fromARGB(255, 153, 220, 151);
+const kButtonColor = Color(0xFFecf4f3);
 const kThemeDarkColor = Color(0xFF367465);
 const kThemeColor = Color(0xFFBBDEBA);
 const kButtonSecondColor=  Color.fromRGBO(240, 240, 240, 0.95);

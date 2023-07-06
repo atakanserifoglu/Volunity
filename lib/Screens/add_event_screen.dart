@@ -7,6 +7,7 @@ import 'package:volunity/riverpod/add_profile_screen_riverpod.dart';
 import 'package:volunity/services/user_profile_model.dart';
 import 'package:volunity/services/user_service.dart';
 import 'package:volunity/utilities/bottom_bar.dart';
+import '../utilities/add_event_picture.dart';
 import '../utilities/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
@@ -29,14 +30,14 @@ class AddEvent extends ConsumerStatefulWidget {
 class _AddEvent extends ConsumerState<AddEvent> {
   firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
   String? eventName, eventDetails;
-  String? city="";
+  String? city = "";
   DateTime eventDate = DateTime.now();
   final formKey = GlobalKey<FormState>();
   File? _photo;
   String? photoName = "";
   Uint8List? _selectedFileBytes;
   Uint8List? get selectedFileBytes => _selectedFileBytes;
-  
+
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
   final Stream _stream =
       FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots();
@@ -85,29 +86,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
                               onTap: () {
                                 _showPicker(context);
                               },
-                              child: CircleAvatar(
-                                radius: deviceWidth / 5,
-                                backgroundColor: _photo == null ? kButtonColor : Colors.white,
-                                child: _photo != null
-                                    ? ClipRRect(
-                                        borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)),
-                                        child: Image.file(
-                                          fit: BoxFit.cover,
-                                          _photo!,
-                                        ),
-                                      )
-                                    : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(deviceWidth / 1.5)),
-                                        width: deviceWidth / 2.9,
-                                        height: deviceWidth / 2.9,
-                                        child: const Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                              ),
+                              child: AddEventPicture(deviceWidth: deviceWidth, photo: _photo),
                             ),
                           )
                         ],
@@ -120,9 +99,8 @@ class _AddEvent extends ConsumerState<AddEvent> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: fieldText,
                         decoration: const InputDecoration(
-                            labelText: "Event Name",
-                            
-                            ),
+                          labelText: "Event Name",
+                        ),
                         validator: (value) {
                           if (value!.length < 3) return "Event name should contain more thsn 3 letters";
                           return null;
@@ -137,10 +115,10 @@ class _AddEvent extends ConsumerState<AddEvent> {
                         controller: fieldText2,
                         maxLines: null,
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: deviceHeight / 30, horizontal: 10.0),
-                            labelText: "Event Detail",
-                            hintMaxLines: 8,
-                            ),
+                          contentPadding: EdgeInsets.symmetric(vertical: deviceHeight / 30, horizontal: 10.0),
+                          labelText: "Event Detail",
+                          hintMaxLines: 8,
+                        ),
                         onSaved: (data) => eventDetails = data,
                       ),
                       SizedBox(
@@ -154,7 +132,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
                               const Text("Event Date: "),
                               ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFecf4f3), // Background color
+                                    backgroundColor: kButtonColor, // Background color
                                     foregroundColor: kThemeDarkColor, // Text Color (Foreground color)
                                   ),
                                   onPressed: () async {
@@ -204,7 +182,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
                             width: MediaQuery.of(context).size.width / 2,
                             child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFecf4f3), // Background color
+                                backgroundColor: kButtonColor, // Background color
                                 foregroundColor: kThemeDarkColor, // Text Color (Foreground color)
                               ),
                               onPressed: () => {
@@ -284,7 +262,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
     final ref = storageRef.child(fileName);
     return ref;
   }
-  
+
   void getUserCurrentCity() {
     final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
     docRef.get().then(
@@ -377,4 +355,3 @@ class _AddEvent extends ConsumerState<AddEvent> {
   }
 }
 
-sandDataToDB() async {}

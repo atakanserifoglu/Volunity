@@ -12,6 +12,7 @@ class DefaultTheme {
         colorScheme: ColorScheme.fromSeed(
           seedColor:kThemeDarkColor,
         ),
+        
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           unselectedItemColor: Color.fromARGB(255, 156, 202, 175),
           showUnselectedLabels: false,
