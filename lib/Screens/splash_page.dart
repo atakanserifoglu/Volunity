@@ -25,7 +25,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   void initState() {
     super.initState();
-    getUserCurrentCity();
+    if (FirebaseAuth.instance.currentUser != null){
+      getUserCurrentCity();
+    }
     startTime();
   }
   @override
@@ -80,6 +82,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const EntryPage()));
       }
       else {
+        
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const MainScaffold()));
       }
     });
