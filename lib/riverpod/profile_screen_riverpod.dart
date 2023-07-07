@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddProfileScreenNotifier extends ChangeNotifier {
+class ProfileScreenNotifier extends ChangeNotifier {
   String city="None";
 
   void changedCity(String value){
@@ -14,6 +14,6 @@ class AddProfileScreenNotifier extends ChangeNotifier {
 }
 
 
-final addProfileScreenProvider = ChangeNotifierProvider<AddProfileScreenNotifier>((ref) {
-  return AddProfileScreenNotifier();
+final profileScreenProvider = ChangeNotifierProvider<ProfileScreenNotifier>((ref) {
+  return ProfileScreenNotifier();
 });

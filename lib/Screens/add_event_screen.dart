@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:volunity/riverpod/add_profile_screen_riverpod.dart';
+import 'package:volunity/riverpod/profile_screen_riverpod.dart';
 import 'package:volunity/services/user_profile_model.dart';
 import 'package:volunity/services/user_service.dart';
 import 'package:volunity/utilities/bottom_bar.dart';
@@ -39,8 +39,6 @@ class _AddEvent extends ConsumerState<AddEvent> {
   Uint8List? get selectedFileBytes => _selectedFileBytes;
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
-  final Stream _stream =
-      FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots();
 
   final ImagePicker _picker = ImagePicker();
   final fieldText = TextEditingController();
@@ -48,8 +46,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
-    var watch = ref.watch(addProfileScreenProvider);
-    var read = ref.watch(addProfileScreenProvider);
+    var watch = ref.watch(profileScreenProvider);
     final double deviceHeight = MediaQuery.sizeOf(context).height;
     final double deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -157,22 +154,12 @@ class _AddEvent extends ConsumerState<AddEvent> {
                       SizedBox(
                         height: deviceHeight / 30,
                       ),
-                      StreamBuilder(
-                        stream: _stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final currentCity = snapshot.data!;
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text("Şuanki konumunuz: ", style: kTitleTextStyle),
-                                Text(currentCity['currentCity'],
-                                    style: kTitleTextStyle.copyWith(fontWeight: FontWeight.bold))
-                              ],
-                            );
-                          }
-                          return const Text("Şuanki konumunuz belli değil! Lütfen Profilden konumunuzu belirleyin.");
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Şuanki konumunuz: ", style: kTitleTextStyle),
+                          Text(watch.city, style: kTitleTextStyle.copyWith(fontWeight: FontWeight.bold))
+                        ],
                       ),
                       SizedBox(height: deviceHeight / 20),
                       Row(
@@ -354,4 +341,3 @@ class _AddEvent extends ConsumerState<AddEvent> {
     return text.substring(0, indexOfSpace);
   }
 }
-

@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
-import 'package:volunity/riverpod/add_profile_screen_riverpod.dart';
+import 'package:volunity/riverpod/profile_screen_riverpod.dart';
 
 import '../auth/utils.dart';
 import '../utilities/constants.dart';
@@ -39,8 +39,8 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    var watch = ref.watch(addProfileScreenProvider);
-    var read = ref.read(addProfileScreenProvider);
+    var watch = ref.watch(profileScreenProvider);
+    var read = ref.read(profileScreenProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -148,7 +148,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
     );
   }
 
-  Future<void> userProfileSetToFirebase(AddProfileScreenNotifier watch) async {
+  Future<void> userProfileSetToFirebase(ProfileScreenNotifier watch) async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) {
       return;
