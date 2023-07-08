@@ -94,7 +94,6 @@ class CustomRegisterPage extends ConsumerWidget {
                                   textInputAction: TextInputAction.next,
                                   keyboardType: TextInputType.emailAddress,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  // Validator yaparken textformfield küçülüyor error mesajının büyüklüğü yüüznden şimdilik es geçildi.
                                   validator: (email) =>
                                       email != null && !EmailValidator.validate(email) ? "Enter a valid email " : null,
                                   controller: emailCtrl,
@@ -179,8 +178,8 @@ class CustomRegisterPage extends ConsumerWidget {
                                           horizontal: MediaQuery.of(context).size.width / 25),
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: kButtonColor,
-                                              ),
+                                            backgroundColor: kButtonColor,
+                                          ),
                                           onPressed: () {
                                             signInWithGoogle(ref);
                                           },

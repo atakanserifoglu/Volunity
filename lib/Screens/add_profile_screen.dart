@@ -21,6 +21,17 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
   final TextEditingController _fieldTextController2 = TextEditingController();
   final TextEditingController _fieldTextController3 = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool selected1 = false;
+  bool selected2 = false;
+  bool selected3 = false;
+  bool selected4 = false;
+  bool selected5 = false;
+  bool selected6 = false;
+  bool selected7 = false;
+  bool selected8 = false;
+  bool selected9 = false;
+  Set selectedInterest = {};
+  List selectedInterestData = [];
 
   @override
   void initState() {
@@ -68,6 +79,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
                           textInputAction: TextInputAction.next,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: _fieldTextController,
+                          //validator: (value) => value != null && _fieldTextController.text.isEmpty ? "İsim ve Soyisim kısmı boş olamaz" : null,
                           decoration: const InputDecoration(
                             labelText: "İsim ve Soyisim",
                           ),
@@ -76,6 +88,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
                           height: deviceHeight / 30,
                         ),
                         TextFormField(
+                          //validator: (value) => value != null ? "Hakkında kısmı boş olamaz" : null,
                           textInputAction: TextInputAction.next,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: _fieldTextController2,
@@ -89,30 +102,194 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
                         SizedBox(
                           height: deviceHeight / 30,
                         ),
-                        DropdownButton(
-                          hint: const Text('Bir il seçin'),
-                          value: watch.city,
-                          onChanged: (newValue) {
-                            read.changedCity(newValue.toString());
-                          },
-                          items: cities.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Yaşadığın şehir: ",
+                              style: kCardTitleStyle.copyWith(fontSize: 16),
+                            ),
+                            DropdownButton(
+                              hint: const Text('Bir il seçin'),
+                              value: watch.city,
+                              onChanged: (newValue) {
+                                read.changedCity(newValue.toString());
+                              },
+                              items: cities.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          height: deviceHeight / 30,
+                          height: deviceHeight / 50,
                         ),
-                        TextFormField(
-                          onTap: () {},
-                          textInputAction: TextInputAction.next,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: _fieldTextController3,
-                          decoration: const InputDecoration(
-                            labelText: "İlgi alanların",
-                          ),
+                        Text(
+                          "İlgi alanların:",
+                          style: kCardTitleStyle.copyWith(fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: deviceHeight / 100,
+                        ),
+                        Column(
+                          children: [
+                            Wrap(
+                              spacing: 5.0, // Chip'ler arasındaki boşluk
+                              runSpacing: 1.0, // Yeni satıra geçtiğinde chip'ler arasındaki boşluk
+                              children: [
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Eğitim'),
+                                  selected: selected1,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected1 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Egitim');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Egitim"));
+                                      }
+                                      print(selectedInterest);
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Sağlık'),
+                                  selected: selected2,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected2 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Sağlik');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Sağlik"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Çevre ve Doğa'),
+                                  selected: selected3,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected3 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Cevre');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Cevre"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Hayvan hakları'),
+                                  selected: selected4,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected4 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('HayvanHaklari');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("HayvanHaklari"));
+                                      }
+                                      print(selected);
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Toplumsal duyarlılık'),
+                                  selected: selected5,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected5 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('ToplumsalDuyarlilik');
+                                      } else {
+                                        selectedInterest
+                                            .removeWhere((element) => element.contains("ToplumsalDuyarlilik"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Sanat ve Kültür'),
+                                  selected: selected6,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected6 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Sanat');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Sanat"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Teknoloji'),
+                                  selected: selected7,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected7 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Teknoloji');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Teknoloji"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('Spor ve Rekreasyon'),
+                                  selected: selected8,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected8 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('Spor');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("Spor"));
+                                      }
+                                    });
+                                  },
+                                ),
+                                ChoiceChip(
+                                  backgroundColor: kButtonColor,
+                                  shape: const StadiumBorder(side: BorderSide.none),
+                                  label: const Text('İnsan hakları'),
+                                  selected: selected9,
+                                  onSelected: (bool selected) {
+                                    setState(() {
+                                      selected9 = selected;
+                                      if (selected) {
+                                        selectedInterest.add('İnsanHaklari');
+                                      } else {
+                                        selectedInterest.removeWhere((element) => element.contains("İnsanHaklari"));
+                                      }
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: deviceHeight / 30,
@@ -150,6 +327,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
 
   Future<void> userProfileSetToFirebase(ProfileScreenNotifier watch) async {
     final isValid = formKey.currentState!.validate();
+    selectedInterestData = selectedInterest.toList();
     if (!isValid) {
       return;
     }
@@ -158,7 +336,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
         "name": _fieldTextController.text.trim(),
         "about": _fieldTextController2.text.trim(),
         "currentCity": watch.city,
-        "interest": _fieldTextController3.text.trim(),
+        "interest": selectedInterestData,
       };
       FirebaseFirestore.instance
           .collection('users')

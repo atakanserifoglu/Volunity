@@ -21,10 +21,13 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   _MainScreenState();
   String _city = "";
+  List _interest = [];
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
-  Stream<QuerySnapshot> getEvent() =>
+  Stream<QuerySnapshot> getCityEvent() =>
       FirebaseFirestore.instance.collection("orgs").where("location", isEqualTo: _city).snapshots();
+  Stream<QuerySnapshot> getInterestEvent() =>
+      FirebaseFirestore.instance.collection("orgs").where("interest", arrayContainsAny: _interest).snapshots();
 
   @override
   void initState() {
@@ -37,37 +40,173 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+
     final watch = ref.watch(profileScreenProvider);
+    _interest = watch.interest;
     _city = watch.city;
     return Scaffold(
       appBar: AppBar(
         title: Text(_city),
       ),
-      body: StreamBuilder(
-          stream: getEvent(),
-          builder: (BuildContext context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final document = snapshot.data!.docs[index];
-                    final docData = document.data() as Map<String, dynamic>;
-                    return EventCard(
-                      eventName: docData['name'].toString(),
-                      eventDetail: docData['details'].toString(),
-                      eventDate: formatString(docData['date'].toDate().toString()),
-                      photoName: docData['photoName'].toString(),
-                    );
-                  });
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return const Text("null!!!!");
-            }
-          }),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Yakınındaki etkinlikler",
+                  style: kTitleTextStyle.copyWith(fontSize: 20),
+                )),
+          ),
+          StreamBuilder(
+            stream: getCityEvent(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: deviceHeight / 4,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final document = snapshot.data!.docs[index];
+                              final docData = document.data() as Map<String, dynamic>;
+                              return Card(
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Stack(children: [
+                                    Column(
+                                      children: [
+                                        Ink.image(
+                                          image: NetworkImage(docData['photoName'].toString()),
+                                          height: 120,
+                                          width: 250,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(height: deviceHeight / 100),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text('${docData['name'].toString()}', style: kTitleTextStyle),
+                                              Text(
+                                                '${docData['details'].toString()}',
+                                                style: kTitleTextStyle,
+                                              ),
+                                              Text(
+                                                '${formatString(docData['date'].toDate().toString())}',
+                                                style: kTitleTextStyle,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return const Center(child: Text("Data is null!"));
+              }
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Önerilenler",
+                  style: kTitleTextStyle.copyWith(fontSize: 20),
+                )),
+          ),
+          StreamBuilder(
+            stream: getInterestEvent(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: deviceHeight / 4,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final document = snapshot.data!.docs[index];
+                              final docData = document.data() as Map<String, dynamic>;
+                              return Card(
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Stack(children: [
+                                    Column(
+                                      children: [
+                                        Ink.image(
+                                          image: NetworkImage(docData['photoName'].toString()),
+                                          height: 100,
+                                          width: 250,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(height: deviceHeight / 100),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text('${docData['name'].toString()}', style: kTitleTextStyle),
+                                              Text(
+                                                '${docData['details'].toString()}',
+                                                style: kTitleTextStyle,
+                                              ),
+                                              Text(
+                                                '${formatString(docData['date'].toDate().toString())}',
+                                                style: kTitleTextStyle,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          )
+        ],
+      ),
     );
   }
 }
