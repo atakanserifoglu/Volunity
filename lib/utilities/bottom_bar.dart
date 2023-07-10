@@ -6,55 +6,63 @@ import 'package:volunity/Screens/profile_screen.dart';
 import 'package:volunity/riverpod/bottom_bar_riverpod.dart';
 import 'constants.dart';
 
-
-class BottomBar extends ConsumerStatefulWidget {
-  const BottomBar({super.key});
+class BottomOrgBar extends ConsumerStatefulWidget {
+  const BottomOrgBar({super.key});
   @override
-  ConsumerState<BottomBar> createState() => _BottomBarState();
+  ConsumerState<BottomOrgBar> createState() => _BottomBarOrgState();
 }
 
-class _BottomBarState extends ConsumerState<BottomBar> {
-
+class _BottomBarOrgState extends ConsumerState<BottomOrgBar> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
 
-
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     selectedIndex = index;
-  //   });
-
-  //   if(selectedIndex == 1){
-  //       Navigator.pushNamedAndRemoveUntil(context, MainScreen.id,(route)=> false);
-  //   }
-  //   else if(selectedIndex ==2){
-  //       Navigator.pushNamedAndRemoveUntil(context, MainScreen.id,(route)=> false);
-  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-  //         return const ProfileScreen();
-  //       }));
-  //   }
-  //   else if(selectedIndex ==0){
-  //     Navigator.pushNamedAndRemoveUntil(context, MainScreen.id,(route)=> false);
-  //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-  //       return  AddEvent();
-  //     }));
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    var watch = ref.watch(bottomNavigationBarProvider);
-    var read = ref.read(bottomNavigationBarProvider);
+    var watch = ref.watch(bottomNavigationBarOrgProvider);
+    var read = ref.read(bottomNavigationBarOrgProvider);
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.add),
           label: 'Add Event',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+      currentIndex: watch.currentIndex,
+      onTap: (index) => read.setCurrentIndex(index),
+    );
+  }
+}
+
+class BottomPersBar extends ConsumerStatefulWidget {
+  const BottomPersBar({super.key});
+  @override
+  ConsumerState<BottomPersBar> createState() => _BottomBarPersState();
+}
+
+class _BottomBarPersState extends ConsumerState<BottomPersBar> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var watch = ref.watch(bottomNavigationBarPersProvider);
+    var read = ref.read(bottomNavigationBarPersProvider);
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',

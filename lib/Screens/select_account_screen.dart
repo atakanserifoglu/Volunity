@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:volunity/Screens/register_screen.dart';
-import 'package:volunity/utilities/bottom_bar.dart';
 import '../auth/authentication_provider.dart';
 import '../auth/custom_register_page.dart';
 import '../utilities/constants.dart';
-import 'main_screen.dart';
 
 class SelectAccount extends ConsumerWidget {
   static const String id = 'Select Type Screen';

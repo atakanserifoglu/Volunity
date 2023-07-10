@@ -4,8 +4,7 @@ import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profile_screen.dart';
 
-class BottomNavigationBarRiverpod extends ChangeNotifier {
-
+class BottomNavigationBarOrganizerRiverpod extends ChangeNotifier {
   int currentIndex = 1;
 
   void setCurrentIndex(int index) {
@@ -27,4 +26,27 @@ class BottomNavigationBarRiverpod extends ChangeNotifier {
   }
 }
 
-final bottomNavigationBarProvider = ChangeNotifierProvider<BottomNavigationBarRiverpod>((ref) => BottomNavigationBarRiverpod());
+class BottomNavigationBarPersonelRiverpod extends ChangeNotifier {
+  int currentIndex = 1;
+
+  void setCurrentIndex(int index) {
+    currentIndex = index;
+    notifyListeners();
+  }
+
+  Widget currentWidget() {
+    switch (currentIndex) {
+      case 0:
+        return MainScreen();
+      case 1:
+        return const ProfileScreen();
+      default:
+        return MainScreen();
+    }
+  }
+}
+
+final bottomNavigationBarOrgProvider =
+    ChangeNotifierProvider<BottomNavigationBarOrganizerRiverpod>((ref) => BottomNavigationBarOrganizerRiverpod());
+final bottomNavigationBarPersProvider =
+    ChangeNotifierProvider<BottomNavigationBarPersonelRiverpod>((ref) => BottomNavigationBarPersonelRiverpod());

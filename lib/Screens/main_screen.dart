@@ -46,6 +46,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final watch = ref.watch(profileScreenProvider);
     _interest = watch.interest;
     _city = watch.city;
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(_city),

@@ -1,18 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:volunity/Screens/login_screen.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/utils.dart';
 
 import '../Screens/select_account_screen.dart';
-import '../main.dart';
 import '../utilities/constants.dart';
 import 'authentication_provider.dart';
 
@@ -39,7 +34,7 @@ class CustomLoginPage extends ConsumerWidget {
           );
         } else if (snapshot.hasData) {
           //User signed
-          return const MainScaffold();
+          return MainScaffold();
         } else {
           return Scaffold(
             body: SafeArea(
@@ -128,11 +123,11 @@ class CustomLoginPage extends ConsumerWidget {
                               padding: const EdgeInsets.all(10.0),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 5,
-                                      height: MediaQuery.of(context).size.height / 15,
+                                height: MediaQuery.of(context).size.height / 15,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: kThemeDarkColor,
-                                    ),
+                                    backgroundColor: kThemeDarkColor,
+                                  ),
                                   onPressed: () {
                                     signIn(emailCtrl, passwordCtrl, context);
                                   },
@@ -151,8 +146,8 @@ class CustomLoginPage extends ConsumerWidget {
                               child: Center(
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: kButtonColor,
-                                        ),
+                                      backgroundColor: kButtonColor,
+                                    ),
                                     onPressed: () {
                                       signInWithGoogle(ref);
                                     },
@@ -198,10 +193,10 @@ class CustomLoginPage extends ConsumerWidget {
                                                     context, SelectAccount.id, (route) => false);
                                               },
                                             text: 'Kaydolun',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(decoration: TextDecoration.underline,decorationColor: const Color(0xFF367465), color: const Color(0xFF367465))),
+                                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                decoration: TextDecoration.underline,
+                                                decorationColor: const Color(0xFF367465),
+                                                color: const Color(0xFF367465))),
                                       ]),
                                 ),
                               ),

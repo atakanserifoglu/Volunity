@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/Screens/add_profile_screen.dart';
+import 'package:volunity/Screens/update_profile_screen.dart';
 import 'package:volunity/riverpod/bottom_bar_riverpod.dart';
+import 'package:volunity/services/user_service.dart';
 import 'package:volunity/utilities/constants.dart';
 
+import '../riverpod/profile_screen_riverpod.dart';
+import '../services/user_profile_model.dart';
 import '../utilities/bottom_bar.dart';
 import 'entry_page.dart';
 
@@ -16,6 +22,26 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreen extends ConsumerState<ProfileScreen> {
+  UserProfileModel? user = UserProfileModel();
+  final db = FirebaseFirestore.instance;
+  @override
+  void initState() {
+    super.initState();
+    if (FirebaseAuth.instance.currentUser != null) {
+      getUserModelFromFirebase();
+    }
+  }
+
+  Future<void> getUserModelFromFirebase() async {
+    final docRef = db.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).withConverter(
+          fromFirestore: UserProfileModel.fromFirestore,
+          toFirestore: (UserProfileModel user, _) => user.toFirestore(),
+        );
+    final docSnap = await docRef.get();
+    user = docSnap.data(); // Convert to City object
+    ref.read(profileScreenProvider).getUser(user);
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.sizeOf(context).height;
@@ -28,14 +54,14 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
             children: [
               SizedBox(height: deviceHeight / 50),
               const Text(
-                "Your Profile",
+                "Profil",
                 style: kButtonTextStyle,
               ),
               Container(
                 width: deviceWidth / 3,
                 height: deviceHeight / 4,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2),
+                    border: Border.all(color: kThemeDarkColor, width: 2),
                     image: const DecorationImage(
                         image: AssetImage(
                       "Assets/profileAvatar.jpg",
@@ -43,7 +69,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
                     shape: BoxShape.circle),
               ),
               Text(
-                "Name Surname",
+                user?.name ?? "İsim yok.",
                 style: kButtonTextStyleSmall.copyWith(color: Colors.black),
               ),
               SizedBox(height: deviceHeight / 50),
@@ -52,16 +78,12 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
                 child: Container(
                   width: deviceWidth / 2.5,
                   height: deviceHeight / 20,
-                  color: kButtonColor,
+                  color: kThemeColor,
                   child: TextButton(
-                    onPressed: () => print("Update pressed"),
-                    child: const Text(
-                      "Update your profile",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.5,
-                      ),
-                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, UpdateProfileScreen.id);
+                    },
+                    child: const Text("Profilini düzenle", style: kTitleTextStyle),
                   ),
                 ),
               ),
@@ -112,7 +134,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
                         width: deviceWidth / 15,
                       ),
                       Text(
-                        "Your Address",
+                        "Adresin: ${ref.watch(profileScreenProvider).city.toString()}",
                         style: kButtonTextStyleSmall.copyWith(color: Colors.black, fontSize: 17),
                       ),
                     ],

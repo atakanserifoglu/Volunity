@@ -9,7 +9,7 @@ final String? email;
 final String? name;
 final String? currentCity;
 final String? about;
-final String? interest;
+final List? interest;
 final bool? isOrganizer;
   UserProfileModel({
     this.uid,

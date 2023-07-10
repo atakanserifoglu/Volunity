@@ -5,15 +5,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:path/path.dart';
 import 'package:volunity/Screens/add_profile_screen.dart';
-import 'package:volunity/Screens/login_screen.dart';
-import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/authentication_provider.dart';
 import 'package:volunity/auth/custom_login_page.dart';
 import 'package:volunity/auth/utils.dart';
 
-import '../main.dart';
 import '../utilities/constants.dart';
 
 class CustomRegisterPage extends ConsumerWidget {

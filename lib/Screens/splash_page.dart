@@ -4,15 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:volunity/Screens/entry_page.dart';
-import 'package:volunity/Screens/main_screen.dart';
-import 'package:volunity/Screens/register_screen.dart';
-import 'package:volunity/Screens/select_account_screen.dart';
+import 'package:volunity/services/user_profile_model.dart';
 import 'package:volunity/utilities/constants.dart';
 import 'dart:async';
+import '../auth/authentication_provider.dart';
 import '../riverpod/profile_screen_riverpod.dart';
-import 'login_screen.dart';
 import 'main_scaffold.dart';
-
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -25,12 +22,14 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   void initState() {
     super.initState();
-    if (FirebaseAuth.instance.currentUser != null){
+    if (FirebaseAuth.instance.currentUser != null) {
+      getUserIsOrganizer();
       getUserCurrentCity();
       getUserInterest();
     }
     startTime();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +38,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical : MediaQuery.of(context).size.height / 5,),
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height / 5,
+              ),
               child: Container(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.width * 0.5,
@@ -63,8 +64,18 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ),
       ),
     );
-  
   }
+
+  void getUserIsOrganizer() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).setOrganizer(data['isOrganizer']);
+      },
+    );
+  }
+
   void getUserCurrentCity() {
     final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
     docRef.get().then(
@@ -74,6 +85,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       },
     );
   }
+
   void getUserInterest() {
     final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
     docRef.get().then(
@@ -84,16 +96,13 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     );
   }
 
-
   startTime() async {
     var dur = const Duration(seconds: 3);
     return Timer(dur, () {
       if (FirebaseAuth.instance.currentUser == null) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const EntryPage()));
-      }
-      else {
-        
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const MainScaffold()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EntryPage()));
+      } else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScaffold()));
       }
     });
   }
