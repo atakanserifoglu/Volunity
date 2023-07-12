@@ -46,7 +46,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final watch = ref.watch(profileScreenProvider);
     _interest = watch.interest;
     _city = watch.city;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_city),
@@ -210,9 +210,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       ),
     );
   }
-}
 
-String formatString(String text) {
-  int indexOfSpace = text.indexOf(' ', 0);
-  return text.substring(0, indexOfSpace);
+  String formatString(String text) {
+    int indexOfSpace = text.indexOf(' ', 0);
+    return text.substring(0, indexOfSpace);
+  }
 }

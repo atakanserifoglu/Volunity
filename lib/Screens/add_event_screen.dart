@@ -488,6 +488,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
       }
       idList.add(uid);
       _userCollectionReferance.doc(FirebaseAuth.instance.currentUser!.uid).update({"eventIDS": idList});
+      ref.watch(profileScreenProvider).setEventIDS(idList);
     }
   }
 

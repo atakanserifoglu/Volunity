@@ -4,6 +4,8 @@ import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profile_screen.dart';
 
+import '../Screens/manage_events_screen.dart';
+
 class BottomNavigationBarOrganizerRiverpod extends ChangeNotifier {
   int currentIndex = 1;
 
@@ -17,11 +19,11 @@ class BottomNavigationBarOrganizerRiverpod extends ChangeNotifier {
       case 0:
         return const AddEvent();
       case 1:
-        return MainScreen();
+        return const ManageEventsScreen();
       case 2:
         return const ProfileScreen();
       default:
-        return MainScreen();
+        return const ManageEventsScreen();
     }
   }
 }

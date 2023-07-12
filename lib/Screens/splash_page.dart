@@ -19,6 +19,10 @@ class SplashPage extends ConsumerStatefulWidget {
 }
 
 class _SplashPageState extends ConsumerState<SplashPage> {
+  final getUserId = FirebaseAuth.instance.currentUser!.uid;
+
+  String noEventCreated = "Henüz bir event oluşturmadınız";
+
   @override
   void initState() {
     super.initState();
@@ -66,11 +70,31 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     );
   }
 
+  Future<void> getEventsId() async {
+    final docRef =
+        await FirebaseFirestore.instance.collection("users").doc(getUserId).get().then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      if (data.containsKey("eventIDS")) {
+        for (var element in List.from(data['eventIDS'])) {
+          String data = element;
+          ref.watch(profileScreenProvider).eventsIdList.add(data);
+        }
+      } else {
+        print(noEventCreated);
+      }
+    });
+  }
+
   void getUserIsOrganizer() {
     final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
     docRef.get().then(
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
+        bool isOrg = false;
+        isOrg = data["isOrganizer"];
+        if (isOrg == true) {
+          getEventsId();
+        }
         ref.read(profileScreenProvider).setOrganizer(data['isOrganizer']);
       },
     );

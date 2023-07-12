@@ -9,6 +9,12 @@ class ProfileScreenNotifier extends ChangeNotifier {
   List interest = [];
   bool isOrganizer = false;
   UserProfileModel? user = UserProfileModel();
+  List<String> eventsIdList = <String>[];
+
+    void setEventIDS(value) {
+    eventsIdList = value;
+    notifyListeners();
+  }
 
   void setOrganizer(value) {
     isOrganizer = value;
