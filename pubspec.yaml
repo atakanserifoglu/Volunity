@@ -45,6 +45,10 @@ dependencies:
   email_validator: '^2.1.16'
   uuid: ^3.0.7
 
+  #LOCATION & GEOCODING
+  location: ^4.4.0
+  geocode: ^1.0.3
+  geolocation_flutter: ^0.0.6
 
   #FOR_UI
 
