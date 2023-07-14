@@ -63,9 +63,16 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
     user = watch.user;
     selectedInterest = user!.interest!.toSet();
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios_new)),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(deviceWidth / 10, deviceHeight / 10, deviceWidth / 10, deviceHeight / 30),
+          padding: EdgeInsets.fromLTRB(deviceWidth / 10, deviceHeight / 30, deviceWidth / 10, deviceHeight / 30),
           child: Column(
             children: [
               Expanded(

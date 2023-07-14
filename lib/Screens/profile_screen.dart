@@ -47,7 +47,6 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
     final deviceHeight = MediaQuery.sizeOf(context).height;
     final deviceWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      //appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

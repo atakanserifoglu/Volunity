@@ -14,7 +14,7 @@ class ManageEventsScreen extends ConsumerStatefulWidget {
 }
 
 class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
-  List<String> events = [];
+  List events = [];
 
   Stream<QuerySnapshot> getUserEvents() =>
       FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();

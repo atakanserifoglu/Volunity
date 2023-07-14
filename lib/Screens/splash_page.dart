@@ -19,8 +19,6 @@ class SplashPage extends ConsumerStatefulWidget {
 }
 
 class _SplashPageState extends ConsumerState<SplashPage> {
-  final getUserId = FirebaseAuth.instance.currentUser!.uid;
-
   String noEventCreated = "Henüz bir event oluşturmadınız";
 
   @override
@@ -30,6 +28,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       getUserIsOrganizer();
       getUserCurrentCity();
       getUserInterest();
+      getUserFavEvents();
     }
     startTime();
   }
@@ -71,8 +70,11 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> getEventsId() async {
-    final docRef =
-        await FirebaseFirestore.instance.collection("users").doc(getUserId).get().then((DocumentSnapshot doc) {
+    final docRef = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot doc) {
       final data = doc.data() as Map<String, dynamic>;
       if (data.containsKey("eventIDS")) {
         for (var element in List.from(data['eventIDS'])) {
@@ -116,6 +118,16 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
         ref.read(profileScreenProvider).addInterest(data['interest']);
+      },
+    );
+  }
+
+  void getUserFavEvents() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).setEventFavIDS(data['favorite']);
       },
     );
   }

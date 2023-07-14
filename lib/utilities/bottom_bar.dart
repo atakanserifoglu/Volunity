@@ -64,6 +64,10 @@ class _BottomBarPersState extends ConsumerState<BottomPersBar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
+          icon: Icon(Icons.event_note_rounded),
+          label: 'Etkinliklerin',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
         ),

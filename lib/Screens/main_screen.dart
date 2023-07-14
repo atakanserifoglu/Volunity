@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/Screens/show_event_screen.dart';
 import 'package:volunity/riverpod/profile_screen_riverpod.dart';
 import 'package:volunity/services/user_service.dart';
 import 'package:volunity/utilities/event_card.dart';
@@ -79,43 +80,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
-                              return Card(
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Stack(children: [
-                                    Column(
-                                      children: [
-                                        Ink.image(
-                                          image: NetworkImage(docData['photoName'].toString()),
-                                          height: 120,
-                                          width: 250,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(height: deviceHeight / 100),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Text('${docData['name'].toString()}', style: kTitleTextStyle),
-                                              Text(
-                                                '${docData['details'].toString()}',
-                                                style: kTitleTextStyle,
-                                              ),
-                                              Text(
-                                                '${formatString(docData['date'].toDate().toString())}',
-                                                style: kTitleTextStyle,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
-                                ),
-                              );
+                              return getEventCity(docData, deviceHeight);
                             }),
                       ),
                     ],
@@ -157,56 +122,128 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
-                              return Card(
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Stack(children: [
-                                    Column(
-                                      children: [
-                                        Ink.image(
-                                          image: NetworkImage(docData['photoName'].toString()),
-                                          height: 100,
-                                          width: 250,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(height: deviceHeight / 100),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Text('${docData['name'].toString()}', style: kTitleTextStyle),
-                                              Text(
-                                                '${docData['details'].toString()}',
-                                                style: kTitleTextStyle,
-                                              ),
-                                              Text(
-                                                '${formatString(docData['date'].toDate().toString())}',
-                                                style: kTitleTextStyle,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
-                                ),
-                              );
+                              return getEventInterest(docData, deviceHeight);
                             }),
                       ),
                     ],
                   ),
                 );
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
             },
           )
         ],
+      ),
+    );
+  }
+
+  GestureDetector getEventInterest(Map<String, dynamic> docData, double deviceHeight) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShowEventScreen(
+              name: docData['name'].toString(),
+              details: docData['details'].toString(),
+              image: docData['photoName'].toString(),
+              date: formatString(docData['date'].toDate().toString()),
+              location: docData['location'].toString(),
+              eventID: docData['eventID'].toString(),
+            ),
+          ),
+        );
+      },
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Stack(children: [
+          Column(
+            children: [
+              Ink.image(
+                image: NetworkImage(docData['photoName'].toString()),
+                height: 100,
+                width: 250,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: deviceHeight / 100),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(docData['name'].toString(), style: kTitleTextStyle),
+                    Text(
+                      docData['details'].toString(),
+                      style: kTitleTextStyle,
+                    ),
+                    Text(
+                      formatString(docData['date'].toDate().toString()),
+                      style: kTitleTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ]),
+      ),
+    );
+  }
+
+  GestureDetector getEventCity(Map<String, dynamic> docData, double deviceHeight) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShowEventScreen(
+              name: docData['name'].toString(),
+              details: docData['details'].toString(),
+              image: docData['photoName'].toString(),
+              date: formatString(docData['date'].toDate().toString()),
+              location: docData['location'].toString(),
+              eventID: docData['eventID'].toString(),
+            ),
+          ),
+        );
+      },
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Stack(children: [
+          Column(
+            children: [
+              Ink.image(
+                image: NetworkImage(docData['photoName'].toString()),
+                height: 120,
+                width: 250,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: deviceHeight / 100),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(docData['name'].toString(), style: kTitleTextStyle),
+                    Text(
+                      docData['details'].toString(),
+                      style: kTitleTextStyle,
+                    ),
+                    Text(
+                      formatString(docData['date'].toDate().toString()),
+                      style: kTitleTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }

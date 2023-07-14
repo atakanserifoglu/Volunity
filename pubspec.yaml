@@ -2,12 +2,12 @@ name: volunity
 description: Volunity Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.0.5 <4.0.0"
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -42,12 +42,10 @@ dependencies:
   avatar_view: ^1.0.1
 
   #LOGIN
-  email_validator: '^2.1.16'
+  email_validator: "^2.1.16"
   uuid: ^3.0.7
 
-
   #FOR_UI
-
 
 dev_dependencies:
   flutter_test:
@@ -56,9 +54,6 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-
-
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

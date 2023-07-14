@@ -32,6 +32,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
   bool selected9 = false;
   Set selectedInterest = {};
   List selectedInterestData = [];
+  List fav = [];
 
   @override
   void initState() {
@@ -337,6 +338,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
         "about": _fieldTextController2.text.trim(),
         "currentCity": watch.city,
         "interest": selectedInterestData,
+        "favorite": fav,
       };
       FirebaseFirestore.instance
           .collection('users')

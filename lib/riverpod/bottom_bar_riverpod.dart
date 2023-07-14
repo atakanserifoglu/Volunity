@@ -4,6 +4,7 @@ import 'package:volunity/Screens/add_event_screen.dart';
 import 'package:volunity/Screens/main_screen.dart';
 import 'package:volunity/Screens/profile_screen.dart';
 
+import '../Screens/available_event.dart';
 import '../Screens/manage_events_screen.dart';
 
 class BottomNavigationBarOrganizerRiverpod extends ChangeNotifier {
@@ -39,8 +40,10 @@ class BottomNavigationBarPersonelRiverpod extends ChangeNotifier {
   Widget currentWidget() {
     switch (currentIndex) {
       case 0:
-        return MainScreen();
+        return const AvailableEvent();
       case 1:
+        return MainScreen();
+      case 2:
         return const ProfileScreen();
       default:
         return MainScreen();

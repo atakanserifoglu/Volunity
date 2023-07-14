@@ -13,6 +13,7 @@ import 'package:volunity/theme/default_theme.dart';
 
 import 'Screens/add_profile_screen.dart';
 import 'Screens/select_account_screen.dart';
+import 'Screens/show_event_screen.dart';
 import 'Screens/splash_page.dart';
 import 'Screens/update_profile_screen.dart';
 import 'auth/custom_login_page.dart';

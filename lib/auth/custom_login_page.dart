@@ -8,16 +8,23 @@ import 'package:volunity/Screens/main_scaffold.dart';
 import 'package:volunity/auth/utils.dart';
 
 import '../Screens/select_account_screen.dart';
+import '../riverpod/profile_screen_riverpod.dart';
 import '../utilities/constants.dart';
 import 'authentication_provider.dart';
 
-class CustomLoginPage extends ConsumerWidget {
+class CustomLoginPage extends ConsumerStatefulWidget {
   static const String id = 'CustomSignIn Screen';
-  CustomLoginPage({super.key});
+  const CustomLoginPage({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _CustomLoginPage();
+}
+
+class _CustomLoginPage extends ConsumerState<CustomLoginPage> {
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     var read = ref.read(authNotifierProvider);
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -284,6 +291,12 @@ class CustomLoginPage extends ConsumerWidget {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+          getEventsId();
+          getUserIsOrganizer();
+          getUserCurrentCity();
+          getUserInterest();
+
+
     } on FirebaseAuthException catch (e) {
       print("Something is wrong $e");
       Utils.showSnackBar(e.message);
@@ -292,5 +305,56 @@ class CustomLoginPage extends ConsumerWidget {
         context); //Bu kod şimdilik iş görüyor ileride olabilecek hatalar için alttaki kodu kullanabiliriz: MetarielPage e "navigatorKey: navigatorKey" eklenmeli..
 
     //navigatorKey.currentState!.popUntil((route)=> route.isFirst);
+  }
+
+  Future<void> getEventsId() async {
+    final docRef = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      if (data.containsKey("eventIDS")) {
+        for (var element in List.from(data['eventIDS'])) {
+          String data = element;
+          ref.watch(profileScreenProvider).eventsIdList.add(data);
+        }
+      }
+    });
+  }
+
+  void getUserIsOrganizer() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        bool isOrg = false;
+        isOrg = data["isOrganizer"];
+        if (isOrg == true) {
+          getEventsId();
+        }
+        ref.read(profileScreenProvider).setOrganizer(data['isOrganizer']);
+      },
+    );
+  }
+
+  void getUserCurrentCity() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).changedCity(data['currentCity']);
+      },
+    );
+  }
+
+  void getUserInterest() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).addInterest(data['interest']);
+      },
+    );
   }
 }
