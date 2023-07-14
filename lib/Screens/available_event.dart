@@ -14,10 +14,13 @@ class AvailableEvent extends ConsumerStatefulWidget {
 }
 
 class _AvailableEventState extends ConsumerState<AvailableEvent> {
-  List _favorite = [];
+  List _favorite = ["a"];
+  List _apply = ["a"];
 
   Stream<QuerySnapshot> getFavEvents() =>
-      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn : _favorite).snapshots();
+      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _favorite).snapshots();
+  Stream<QuerySnapshot> getApplyEvent() =>
+      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _apply).snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
 
     final watch = ref.watch(profileScreenProvider);
     _favorite = watch.eventsFav;
+    _apply = watch.eventsApply;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -56,7 +60,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
-                              return getFavEventCard(docData, deviceHeight);
+                              return getEvents(docData, deviceHeight);
                             }),
                       ),
                     ],
@@ -81,12 +85,45 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
                   style: kTitleTextStyle.copyWith(fontSize: 20),
                 )),
           ),
+          StreamBuilder(
+            stream: getApplyEvent(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: deviceHeight / 4,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final document = snapshot.data!.docs[index];
+                              final docData = document.data() as Map<String, dynamic>;
+                              return getEvents(docData, deviceHeight);
+                            }),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return const Center(child: Text("Data is null!"));
+              }
+            },
+          ),
         ],
       ),
     );
   }
 
-  GestureDetector getFavEventCard(Map<String, dynamic> docData, double deviceHeight) {
+  GestureDetector getEvents(Map<String, dynamic> docData, double deviceHeight) {
     return GestureDetector(
       onTap: () {
         Navigator.push(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:volunity/Screens/main_scaffold.dart';
+import 'package:volunity/Screens/splash_page.dart';
 import 'package:volunity/auth/utils.dart';
 
 import '../Screens/select_account_screen.dart';
@@ -291,12 +292,14 @@ class _CustomLoginPage extends ConsumerState<CustomLoginPage> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
-          getEventsId();
-          getUserIsOrganizer();
-          getUserCurrentCity();
-          getUserInterest();
-
-
+      if (FirebaseAuth.instance.currentUser != null) {
+        getEventsId();
+        getUserIsOrganizer();
+        getUserCurrentCity();
+        getUserInterest();
+        getUserFavEvents();
+        getUserApplyEvents();
+      }
     } on FirebaseAuthException catch (e) {
       print("Something is wrong $e");
       Utils.showSnackBar(e.message);
@@ -354,6 +357,26 @@ class _CustomLoginPage extends ConsumerState<CustomLoginPage> {
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
         ref.read(profileScreenProvider).addInterest(data['interest']);
+      },
+    );
+  }
+
+  void getUserFavEvents() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).setEventFavIDS(data['favorite']);
+      },
+    );
+  }
+
+  void getUserApplyEvents() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).setEventApplyIDS(data['apply']);
       },
     );
   }

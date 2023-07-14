@@ -11,6 +11,12 @@ class ProfileScreenNotifier extends ChangeNotifier {
   UserProfileModel? user = UserProfileModel();
   List eventsIdList = [];
   List eventsFav = [];
+  List eventsApply = [];
+
+  void setEventApplyIDS(value) {
+    eventsApply = value;
+    notifyListeners();
+  }
 
   void setEventFavIDS(value) {
     eventsFav = value;

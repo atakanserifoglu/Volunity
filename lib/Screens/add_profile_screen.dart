@@ -33,6 +33,8 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
   Set selectedInterest = {};
   List selectedInterestData = [];
   List fav = [];
+  List apply = [];
+  List match = [];
 
   @override
   void initState() {
@@ -339,6 +341,8 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
         "currentCity": watch.city,
         "interest": selectedInterestData,
         "favorite": fav,
+        "apply": apply,
+        "match": match,
       };
       FirebaseFirestore.instance
           .collection('users')

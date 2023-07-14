@@ -29,6 +29,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       getUserCurrentCity();
       getUserInterest();
       getUserFavEvents();
+      getUserApplyEvents();
     }
     startTime();
   }
@@ -128,6 +129,15 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
         ref.read(profileScreenProvider).setEventFavIDS(data['favorite']);
+      },
+    );
+  }
+  void getUserApplyEvents() {
+    final docRef = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        ref.read(profileScreenProvider).setEventApplyIDS(data['apply']);
       },
     );
   }

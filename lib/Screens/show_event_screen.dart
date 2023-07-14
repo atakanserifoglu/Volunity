@@ -29,10 +29,9 @@ class ShowEventScreen extends ConsumerStatefulWidget {
 }
 
 class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
-  Set setData = {};
-  List listData = [];
-
   Future<void> setFavToFirebase(String eventId) async {
+    Set setData = {};
+    List listData = [];
     setData = ref.watch(profileScreenProvider).eventsFav.toSet();
     List<String> idList = <String>[];
     final _user = FirebaseFirestore.instance.collection("users");
@@ -51,9 +50,35 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
       idList.add(eventId);
       setData.add(eventId);
       listData = setData.toList();
-      ref.watch(profileScreenProvider).eventsFav=listData;
+      ref.watch(profileScreenProvider).eventsFav = listData;
     }
     _user.doc(FirebaseAuth.instance.currentUser!.uid).update({"favorite": idList});
+  }
+
+  Future<void> setApplyToFirebase(String eventId) async {
+    Set setData = {};
+    List listData = [];
+    setData = ref.watch(profileScreenProvider).eventsApply.toSet();
+    List<String> idList = <String>[];
+    final _user = FirebaseFirestore.instance.collection("users");
+    DocumentSnapshot<Object?> doc = await _user.doc(FirebaseAuth.instance.currentUser!.uid).get();
+    final data = doc.data() as Map<String, dynamic>;
+    if (data.containsKey('apply')) {
+      // 'eventIDS' is already available.
+      for (var element in List.from(data['apply'])) {
+        String data = element;
+        idList.add(data);
+      }
+    }
+    if (idList.contains(eventId)) {
+      print("data eşitliği var");
+    } else {
+      idList.add(eventId);
+      setData.add(eventId);
+      listData = setData.toList();
+      ref.watch(profileScreenProvider).eventsApply = listData;
+    }
+    _user.doc(FirebaseAuth.instance.currentUser!.uid).update({"apply": idList});
   }
 
   @override
@@ -131,7 +156,12 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () {}, child: const Text("Katılma talebinde bulun")),
+                  ElevatedButton(
+                      onPressed: () {
+                        setApplyToFirebase(widget.eventID);
+                        read.eventsApply.add(widget.eventID);
+                      },
+                      child: const Text("Katılma talebinde bulun")),
                   ElevatedButton(
                       onPressed: () {
                         setFavToFirebase(widget.eventID);
