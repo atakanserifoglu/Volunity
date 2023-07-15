@@ -47,7 +47,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
   bool selected8 = false;
   bool selected9 = false;
   Set selectedInterest = {};
-  List selectedInterestData=[];
+  List selectedInterestData = [];
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
 
@@ -349,7 +349,7 @@ class _AddEvent extends ConsumerState<AddEvent> {
             Expanded(
               flex: 0,
               child: Padding(
-                padding:  EdgeInsets.only(bottom : deviceHeight / 50),
+                padding: EdgeInsets.only(bottom: deviceHeight / 50),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
@@ -446,26 +446,27 @@ class _AddEvent extends ConsumerState<AddEvent> {
   void _saveFormData() async {
     String uid = uuid.v1();
     if (formKey.currentState!.validate()) {
-
       formKey.currentState!.save();
       getUserCurrentCity();
       uploadFile();
       final imageReference = uploadFile();
-      selectedInterestData=selectedInterest.toList();
-
+      selectedInterestData = selectedInterest.toList();
+      List ids = [];
 
       await imageReference!.putData(_selectedFileBytes!);
       final urlPath = await imageReference.getDownloadURL();
 
       CollectionReference _collectionReferance = FirebaseFirestore.instance.collection("orgs");
-      _collectionReferance.doc().set({
-        "interest" : selectedInterestData,
+      _collectionReferance.doc(uid).set({
+        "interest": selectedInterestData,
         "name": eventName,
         "details": eventDetails,
         "location": city,
         "date": eventDate,
         "photoName": urlPath,
         "eventID": uid,
+        "toApplyUserIDS": ids,
+        "toMatchUserIDS": ids,
       });
 
       List<String> idList = <String>[];

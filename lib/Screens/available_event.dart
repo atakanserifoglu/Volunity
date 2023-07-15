@@ -14,8 +14,8 @@ class AvailableEvent extends ConsumerStatefulWidget {
 }
 
 class _AvailableEventState extends ConsumerState<AvailableEvent> {
-  List _favorite = ["a"];
-  List _apply = ["a"];
+  List _favorite = [""];
+  List _apply = [""];
 
   Stream<QuerySnapshot> getFavEvents() =>
       FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _favorite).snapshots();
@@ -136,6 +136,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
               eventID: 'eventID',
+              docData: docData,
             ),
           ),
         );

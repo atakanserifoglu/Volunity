@@ -35,6 +35,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
   List fav = [];
   List apply = [];
   List match = [];
+  String userID="";
 
   @override
   void initState() {
@@ -334,6 +335,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
     if (!isValid) {
       return;
     }
+    userID = FirebaseAuth.instance.currentUser!.uid;
     try {
       final data = {
         "name": _fieldTextController.text.trim(),
@@ -343,6 +345,7 @@ class _AddProfileScreenState extends ConsumerState<AddProfileScreen> {
         "favorite": fav,
         "apply": apply,
         "match": match,
+        "userID": userID,
       };
       FirebaseFirestore.instance
           .collection('users')

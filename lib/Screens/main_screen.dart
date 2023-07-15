@@ -23,6 +23,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   _MainScreenState();
   String _city = "";
   List _interest = [""];
+  List toApplyUserIDS = [""];
+  List toMatchUserIDS = [""];
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
   Stream<QuerySnapshot> getCityEvent() =>
@@ -80,6 +82,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
+                              //final docID = document["id"];
                               return getEventCity(docData, deviceHeight);
                             }),
                       ),
@@ -122,7 +125,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
-                              return getEventInterest(docData, deviceHeight);
+                              return getEventInterest(docData,deviceHeight);
                             }),
                       ),
                     ],
@@ -140,7 +143,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     );
   }
 
-  GestureDetector getEventInterest(Map<String, dynamic> docData, double deviceHeight) {
+  GestureDetector getEventInterest(Map<String, dynamic> docData ,double deviceHeight) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -153,6 +156,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
               eventID: docData['eventID'].toString(),
+              docData:docData,
             ),
           ),
         );
@@ -207,6 +211,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
               eventID: docData['eventID'].toString(),
+              docData:docData,
             ),
           ),
         );

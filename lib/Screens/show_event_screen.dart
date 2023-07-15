@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/riverpod/events_riverpod.dart';
 
 import '../riverpod/profile_screen_riverpod.dart';
 import '../utilities/constants.dart';
@@ -15,6 +16,7 @@ class ShowEventScreen extends ConsumerStatefulWidget {
       required this.location,
       required this.date,
       required this.eventID,
+      required this.docData,
       super.key});
 
   final String image;
@@ -23,7 +25,7 @@ class ShowEventScreen extends ConsumerStatefulWidget {
   final String location;
   final String date;
   final String eventID;
-
+  final docData;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ShowEventScreen();
 }
@@ -79,6 +81,28 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
       ref.watch(profileScreenProvider).eventsApply = listData;
     }
     _user.doc(FirebaseAuth.instance.currentUser!.uid).update({"apply": idList});
+  }
+
+  Future<void> setApplyUserIDSToFirebase(String userApplyIDS, docData, eventId) async {
+    Set setData = {};
+    List listData = [];
+    List<String> idList = <String>[];
+
+    for (var element in List.from(docData['toApplyUserIDS'])) {
+      String data = element;
+      idList.add(data);
+    }
+
+    if (idList.contains(userApplyIDS)) {
+      print("data eşitliği var");
+    } else {
+      idList.add(userApplyIDS);
+      setData.add(userApplyIDS);
+      listData = setData.toList();
+    }
+    await FirebaseFirestore.instance.collection("orgs").doc(eventId).update({"toApplyUserIDS": idList});
+
+    //({"toApplyUserIDS": idList})
   }
 
   @override
@@ -160,6 +184,8 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
                       onPressed: () {
                         setApplyToFirebase(widget.eventID);
                         read.eventsApply!.add(widget.eventID);
+                        setApplyUserIDSToFirebase(
+                            FirebaseAuth.instance.currentUser!.uid, widget.docData, widget.eventID);
                       },
                       child: const Text("Katılma talebinde bulun")),
                   ElevatedButton(

@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:volunity/Screens/show_event_screen.dart';
 import 'package:volunity/riverpod/profile_screen_riverpod.dart';
 
 import '../utilities/constants.dart';
+import 'match_screen.dart';
 
 class ManageEventsScreen extends ConsumerStatefulWidget {
   const ManageEventsScreen({super.key});
@@ -17,7 +19,7 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
   List? events = [""];
 
   Stream<QuerySnapshot> getUserEvents() {
-   return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
+    return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
   }
 
   @override
@@ -50,11 +52,26 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
                               itemBuilder: (BuildContext context, int index) {
                                 final document = snapshot.data!.docs[index];
                                 final docData = document.data() as Map<String, dynamic>;
-                                return Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                  child: GestureDetector(
-                                    onTap: () {},
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MatchScreen(
+                                          name: docData['name'].toString(),
+                                          details: docData['details'].toString(),
+                                          image: docData['photoName'].toString(),
+                                          date: formatString(docData['date'].toDate().toString()),
+                                          location: docData['location'].toString(),
+                                          eventID: docData['eventID'].toString(),
+                                          docData: docData,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                     child: Stack(children: [
                                       Column(
                                         children: [
