@@ -32,7 +32,7 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
   Future<void> setFavToFirebase(String eventId) async {
     Set setData = {};
     List listData = [];
-    setData = ref.watch(profileScreenProvider).eventsFav.toSet();
+    setData = ref.watch(profileScreenProvider).eventsFav!.toSet();
     List<String> idList = <String>[];
     final _user = FirebaseFirestore.instance.collection("users");
     DocumentSnapshot<Object?> doc = await _user.doc(FirebaseAuth.instance.currentUser!.uid).get();
@@ -58,7 +58,7 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
   Future<void> setApplyToFirebase(String eventId) async {
     Set setData = {};
     List listData = [];
-    setData = ref.watch(profileScreenProvider).eventsApply.toSet();
+    setData = ref.watch(profileScreenProvider).eventsApply!.toSet();
     List<String> idList = <String>[];
     final _user = FirebaseFirestore.instance.collection("users");
     DocumentSnapshot<Object?> doc = await _user.doc(FirebaseAuth.instance.currentUser!.uid).get();
@@ -159,13 +159,13 @@ class _ShowEventScreen extends ConsumerState<ShowEventScreen> {
                   ElevatedButton(
                       onPressed: () {
                         setApplyToFirebase(widget.eventID);
-                        read.eventsApply.add(widget.eventID);
+                        read.eventsApply!.add(widget.eventID);
                       },
                       child: const Text("Katılma talebinde bulun")),
                   ElevatedButton(
                       onPressed: () {
                         setFavToFirebase(widget.eventID);
-                        read.eventsFav.add(widget.eventID);
+                        read.eventsFav!.add(widget.eventID);
                       },
                       child: const Text("Favorilere ekle"))
                 ],

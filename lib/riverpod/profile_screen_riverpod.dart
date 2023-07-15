@@ -6,12 +6,12 @@ import 'package:volunity/services/user_profile_model.dart';
 
 class ProfileScreenNotifier extends ChangeNotifier {
   String city = "None";
-  List interest = [];
+  List interest = [""];
   bool isOrganizer = false;
   UserProfileModel? user = UserProfileModel();
-  List eventsIdList = [];
-  List eventsFav = [];
-  List eventsApply = [];
+  List? eventsIdList = [];
+  List? eventsFav = [];
+  List? eventsApply = [];
 
   void setEventApplyIDS(value) {
     eventsApply = value;

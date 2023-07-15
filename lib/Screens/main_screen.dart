@@ -22,7 +22,7 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   _MainScreenState();
   String _city = "";
-  List _interest = [];
+  List _interest = [""];
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
   Stream<QuerySnapshot> getCityEvent() =>

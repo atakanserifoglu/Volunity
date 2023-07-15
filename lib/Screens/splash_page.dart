@@ -80,7 +80,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       if (data.containsKey("eventIDS")) {
         for (var element in List.from(data['eventIDS'])) {
           String data = element;
-          ref.watch(profileScreenProvider).eventsIdList.add(data);
+          ref.watch(profileScreenProvider).eventsIdList?.add(data);
         }
       } else {
         print(noEventCreated);

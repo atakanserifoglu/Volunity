@@ -14,10 +14,11 @@ class ManageEventsScreen extends ConsumerStatefulWidget {
 }
 
 class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
-  List events = [];
+  List? events = [""];
 
-  Stream<QuerySnapshot> getUserEvents() =>
-      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
+  Stream<QuerySnapshot> getUserEvents() {
+   return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {

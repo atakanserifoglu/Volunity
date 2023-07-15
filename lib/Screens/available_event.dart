@@ -28,8 +28,8 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
     double deviceHeight = MediaQuery.of(context).size.height;
 
     final watch = ref.watch(profileScreenProvider);
-    _favorite = watch.eventsFav;
-    _apply = watch.eventsApply;
+    _favorite = watch.eventsFav!;
+    _apply = watch.eventsApply!;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
