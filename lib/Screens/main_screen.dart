@@ -22,15 +22,21 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   _MainScreenState();
   String _city = "";
-  List _interest = [""];
-  List toApplyUserIDS = [""];
-  List toMatchUserIDS = [""];
+  List? _interest = [""];
+  List? toApplyUserIDS = [""];
+  List? toMatchUserIDS = [""];
+
+  Stream<QuerySnapshot> getInterestEvent() {
+    if (_interest!.isEmpty) {
+      return Stream.empty();
+    } else {
+      return FirebaseFirestore.instance.collection("orgs").where("interest", arrayContainsAny: _interest).snapshots();
+    }
+  }
 
   // kullanıcı yoksa uygulama null dönüp hata veriyor alttaki kod yüzünden, eğer misafir girişi olduysa bunu belirt.
   Stream<QuerySnapshot> getCityEvent() =>
       FirebaseFirestore.instance.collection("orgs").where("location", isEqualTo: _city).snapshots();
-  Stream<QuerySnapshot> getInterestEvent() =>
-      FirebaseFirestore.instance.collection("orgs").where("interest", arrayContainsAny: _interest).snapshots();
 
   @override
   void initState() {
@@ -95,7 +101,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                return const Center(child: Text("Data is null!"));
+                return const Center(child: Text("Yakınınızda herhangi bir etkinlik yok"));
               }
             },
           ),
@@ -125,7 +131,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               final document = snapshot.data!.docs[index];
                               final docData = document.data() as Map<String, dynamic>;
-                              return getEventInterest(docData,deviceHeight);
+                              return getEventInterest(docData, deviceHeight);
                             }),
                       ),
                     ],
@@ -143,7 +149,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     );
   }
 
-  GestureDetector getEventInterest(Map<String, dynamic> docData ,double deviceHeight) {
+  GestureDetector getEventInterest(Map<String, dynamic> docData, double deviceHeight) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -156,7 +162,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
               eventID: docData['eventID'].toString(),
-              docData:docData,
+              docData: docData,
             ),
           ),
         );
@@ -181,7 +187,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   children: [
                     Text(docData['name'].toString(), style: kTitleTextStyle),
                     Text(
-                      docData['details'].toString(),
+                      shortenString(docData['details'].toString(), 40),
                       style: kTitleTextStyle,
                     ),
                     Text(
@@ -211,7 +217,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
               eventID: docData['eventID'].toString(),
-              docData:docData,
+              docData: docData,
             ),
           ),
         );
@@ -236,7 +242,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   children: [
                     Text(docData['name'].toString(), style: kTitleTextStyle),
                     Text(
-                      docData['details'].toString(),
+                      shortenString(docData['details'].toString(), 40),
                       style: kTitleTextStyle,
                     ),
                     Text(
@@ -251,6 +257,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         ]),
       ),
     );
+  }
+
+  String shortenString(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return text.substring(0, maxLength) + "...";
+    }
   }
 
   String formatString(String text) {

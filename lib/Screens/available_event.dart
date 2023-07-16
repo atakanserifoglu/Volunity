@@ -14,13 +14,24 @@ class AvailableEvent extends ConsumerStatefulWidget {
 }
 
 class _AvailableEventState extends ConsumerState<AvailableEvent> {
-  List _favorite = [""];
-  List _apply = [""];
+  List? _favorite = [""];
+  List? _apply = [""];
 
-  Stream<QuerySnapshot> getFavEvents() =>
-      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _favorite).snapshots();
-  Stream<QuerySnapshot> getApplyEvent() =>
-      FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _apply).snapshots();
+  Stream<QuerySnapshot> getFavEvents() {
+    if (_favorite!.isEmpty) {
+      return Stream.empty();
+    } else {
+      return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _favorite).snapshots();
+    }
+  }
+
+  Stream<QuerySnapshot> getApplyEvent() {
+    if (_apply!.isEmpty) {
+      return Stream.empty();
+    } else {
+      return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: _apply).snapshots();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +40,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
 
     final watch = ref.watch(profileScreenProvider);
     _favorite = watch.eventsFav!;
-    _apply = watch.eventsApply!;
+    _apply = watch.eventsApply;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -72,7 +83,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                return const Center(child: Text("Data is null!"));
+                return const Center(child: Text("Henüz herhangi bir etkinliği favorilere eklemediniz"));
               }
             },
           ),
@@ -114,7 +125,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                return const Center(child: Text("Data is null!"));
+                return const Center(child: Text("Henüz herhangi bir etkinliğe başvurmadınız"));
               }
             },
           ),
@@ -131,7 +142,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
           MaterialPageRoute(
             builder: (context) => ShowEventScreen(
               name: docData['name'].toString(),
-              details: docData['details'].toString(),
+              details: shortenString(docData['details'].toString(), 40),
               image: docData['photoName'].toString(),
               date: formatString(docData['date'].toDate().toString()),
               location: docData['location'].toString(),
@@ -161,7 +172,7 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
                   children: [
                     Text(docData['name'].toString(), style: kTitleTextStyle),
                     Text(
-                      docData['details'].toString(),
+                      shortenString(docData['details'].toString(), 40),
                       style: kTitleTextStyle,
                     ),
                     Text(
@@ -176,6 +187,14 @@ class _AvailableEventState extends ConsumerState<AvailableEvent> {
         ]),
       ),
     );
+  }
+
+  String shortenString(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return text.substring(0, maxLength) + "...";
+    }
   }
 
   String formatString(String text) {

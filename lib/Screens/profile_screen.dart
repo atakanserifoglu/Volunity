@@ -146,19 +146,6 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
                 child: SizedBox(
                   width: deviceWidth / 1.3,
                   height: deviceHeight / 15,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(backgroundColor: kButtonColor),
-                    icon: const Icon(
-                      Icons.event,
-                      color: Colors.white,
-                      size: 27.5,
-                    ),
-                    label: const Text(
-                      "Manage Events",
-                      style: TextStyle(color: Colors.white, fontSize: 22.5),
-                    ),
-                    onPressed: () => print("manage events pressed"),
-                  ),
                 ),
               ),
               SizedBox(height: deviceHeight / 40),

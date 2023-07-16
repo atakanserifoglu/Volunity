@@ -19,7 +19,11 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
   List? events = [""];
 
   Stream<QuerySnapshot> getUserEvents() {
-    return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
+    if (events!.isEmpty) {
+      return Stream.empty();
+    } else {
+      return FirebaseFirestore.instance.collection("orgs").where("eventID", whereIn: events).snapshots();
+    }
   }
 
   @override
@@ -89,7 +93,7 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
                                               children: [
                                                 Text('${docData['name'].toString()}', style: kTitleTextStyle),
                                                 Text(
-                                                  '${docData['details'].toString()}',
+                                                  shortenString(docData['details'].toString(), 40),
                                                   style: kTitleTextStyle,
                                                 ),
                                                 Text(
@@ -115,7 +119,7 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return const Center(child: Text("Data is null!"));
+                  return const Center(child: Text("Herhangi bir etkinlik oluşturmadınız"));
                 }
               },
             ),
@@ -123,6 +127,13 @@ class _ManageEventsScreenState extends ConsumerState<ManageEventsScreen> {
         ],
       ),
     );
+  }
+    String shortenString(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return text.substring(0, maxLength) + "...";
+    }
   }
 
   String formatString(String text) {
