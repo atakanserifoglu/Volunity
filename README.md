@@ -86,3 +86,28 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 *  Düzenli olarak kodun güncelliğinden emin olunmalı
   
 * Diğer notlar: N/A
+
+  
+# Sprint 3
+* **Puan tamamlama mantığı:** 3. sprint'teki görevlerin ağırlığına göre yaklaşık 100 puanın Sprint 3'te tamamlanması gerektiğine karar verilmiştir.
+* **Sprint 3'te tamamlanması tahmin edilen puan:** 100 puan
+* **Backlog düzeni ve Story seçimleri:** Backlog öncelikli hikayelere göre düzenlenmiştir.
+* **Daily scrum:** Scrum toplantılarının zaman ayarlamasından dolayı WhatsApp üzerinden yapılmasına devam edilmesine karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır: [_chat.txt](https://github.com/atakanserifoglu/Volunity/files/12065273/_chat.txt)
+
+
+* **Sprint board update:** * Sprint board ekran görüntüleri
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/f5c11e05-f791-428b-9f7d-96ed56f07f1b)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/1e81324b-d4c1-4558-82aa-4be5ce923d8c)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/15515bbc-c9c9-4c63-bfd3-426aab5bd09b)
+![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/198c47ee-3e1d-4365-991f-eb01e2f2c064)
+
+
+* **Ürün durumu:** Video:
+
+* **Sprint review:**
+* Yeni eklenen ve güncellenen sayfalar problemsiz çalışmakta/çalışmaya devam etmektedir.
+  
+* **Sprint retrospective:**
+*  Ekip üyeleri arasındaki iletişim ve işbirliğini geliştirmek adına düzenlenen toplantıların yararlı olduğu düşünülmektedir.
+  
+* Diğer notlar: N/A
