@@ -102,7 +102,8 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
 ![image](https://github.com/atakanserifoglu/Volunity/assets/136193961/198c47ee-3e1d-4365-991f-eb01e2f2c064)
 
 
-* **Ürün durumu:** Video:
+* **Ürün durumu:** Video: https://youtu.be/ZgvFtpPq4UI
+
 
 * **Sprint review:**
 * Yeni eklenen ve güncellenen sayfalar problemsiz çalışmakta/çalışmaya devam etmektedir.
