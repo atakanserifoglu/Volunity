@@ -109,5 +109,8 @@ Volunity'nin özellikleri arasında gönüllülerin etkinlikleri takip etmesi, i
   
 * **Sprint retrospective:**
 *  Ekip üyeleri arasındaki iletişim ve işbirliğini geliştirmek adına düzenlenen toplantıların yararlı olduğu düşünülmektedir.
-  
+*  Ürün tasarımı önceki sprinttekilere göre gönüllü uygulamasına uygun biçimde değiştirilmiştir, bazı elemanlar yine de tekrar değiştirilebilir.
+*  Ürüne bazı başka özelliklerin de eklenebileceği konuşulmuş, zaman yetersizliği sebebiyle bu ek özellikler eklenmemiştir.
+
+*  
 * Diğer notlar: N/A
